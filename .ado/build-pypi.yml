@@ -1,0 +1,46 @@
+#Build with setuptools
+#Deploy to PyPi
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - "setup.cfg"
+
+variables:
+  python.version: '3.10'
+  #PyPi.Token - secret variable defined outside yaml
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r .ado/requirements.txt
+    displayName: 'Install build tools'
+
+  - script: |
+      python -m build
+      ls -al
+    displayName: 'Building Distribution Package'
+
+  - task: TwineAuthenticate@1
+    displayName: 'Twine Authenticate Azure'
+    inputs:
+      artifactFeed: recurtools/recurtools
+
+  - script: |
+      python -m twine upload -r recurtools --verbose --config-file $(PYPIRC_PATH) dist/*
+    displayName: 'Publish to Azure'
+
+  # - script: |
+  #     python -m twine upload --verbose -u __token__ -p $(PyPi.Token) dist/*
+  #   displayName: 'Publish to PyPi'
