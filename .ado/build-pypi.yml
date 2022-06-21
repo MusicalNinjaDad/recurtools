@@ -41,6 +41,6 @@ steps:
       python -m twine upload -r recurtools --verbose --config-file $(PYPIRC_PATH) dist/*
     displayName: 'Publish to Azure'
 
-  # - script: |
-  #     python -m twine upload --verbose -u __token__ -p $(PyPi.Token) dist/*
-  #   displayName: 'Publish to PyPi'
+  - script: |
+      python -m twine upload --verbose -u __token__ -p $(PyPi.Token) dist/*
+    displayName: 'Publish to PyPi'
