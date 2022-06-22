@@ -19,12 +19,12 @@ def flatten(nestediterable):
 
 def chainanything(*args, preservestrings=True, recursive=False):
     """
-    Generator: yields the contents of a Sequence, or the given object if not a Sequence, one at a time
+    Generator: yields the contents of an iterable, or the given object if not a iterable, one at a time
     
     preservestrings = False will lead to strings being yielded as individual characters. Default = True
-    recursive = True will recursively flatten sequences. Default = False
+    recursive = True will recursively flatten container. Default = False
     
-    Note: preservestrings = False, recursive = False will only flatten strings which are not part of another Sequence.
+    Note: preservestrings = False, recursive = False will only flatten strings which are not part of another container.
     e.g.: 'abc' -> 'a','b','c' but ['ab','cd'] -> 'ab','cd'
     """
     args = [*args]
