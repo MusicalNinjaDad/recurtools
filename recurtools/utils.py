@@ -1,18 +1,18 @@
 from contextlib import contextmanager
-from typing import Sequence, Sized
+from typing import Collection, Container, Sequence, Sized
 
-def flatten(seq):
+def flatten(nestediterable):
     """
-    Recursively flattens a sequence (including strings!) and returns all elements in order left to right.
+    Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
     E.g.: [1,2,[3,4,[5],6],7,[8,9]] -> [1,2,3,4,5,6,7,8,9]
     """
     try:
-        iterable = [x for x in seq]
+        iter(nestediterable)
     except TypeError:
-        yield seq
+        yield nestediterable
     else:
-        for item in iterable:
-            if item is seq: #catch e.g. a single char string
+        for item in nestediterable:
+            if item is nestediterable: #catch e.g. a single char string
                 yield item
             else:
                 yield from flatten(item)
@@ -39,21 +39,31 @@ def chainanything(*args, preservestrings=True, recursive=False):
             else:
                 yield from arg
 
-def lenrecursive(seq):
+def lenrecursive(container, countcontainers=False):
     """
-    Returns total summed length of all elements recursively.
-    If no elements support len then return will be 0, no TypeError will be raised
-    """
-    def _len(x):
-        try:
-            return len(x)
-        except TypeError: #no len
-            return 0
+    Returns total number of node elements in the (nested) container
     
-    try:
-        return _len(seq) + sum(lenrecursive(s) for s in seq if not isinstance(s, str))
-    except TypeError: #not iterable
-        return _len(seq)
+    countcontainers=True: counts container collections and node elements.
+    This is effectively recursively sum(len(c for c in container))
+    Note:
+        In this case if no elements support len the return will be 0, no TypeError will be raised
+        lenrecursive(6) == 1
+        lenrecursive(6, True) == 0
+    """
+    
+    if countcontainers:
+        def _len(x):
+            try:
+                return len(x)
+            except TypeError: #no len
+                return 0
+        
+        try:
+            return _len(container) + sum(lenrecursive(c, countcontainers=True) for c in container if c is not container)
+        except TypeError: #not iterable
+            return _len(container)
+    else:
+        return len([x for x in flatten(container)])
 
 def lenrecursiveshort(seq):
     return len(seq) + sum(lenrecursiveshort(s) for s in seq if isinstance(s,Sized) and not isinstance(s, str))
@@ -74,33 +84,39 @@ def sumrecursive(seq):
     
     return _sum(flatten(seq))
 
-def countrecursive(seq,val):
+def countrecursive(collection,val):
     """
-    Returns total count of occurences of val in seq recursively.
+    Returns total count of occurences of val in (nested) collection recursively.
     If no elements contain val then return will be 0
     """
-    def _count(seq,val):
+    def _count(collection,val):
         count_ = 0
-        for x in seq:
+        for x in collection:
             if x == val:
                 count_ += 1
         return count_
     
-    return _count(flatten(seq),val)
+    return _count(flatten(collection),val)
 
-def inrecursive(seq,val):
+def inrecursive(collection,val):
     """
-    Searches seq recursively for val. Returns True if val found, False if val not found.
-    If seq is not iterable tests seq == val . E.g. inrecursive(6,6) == True
+    Searches (nested) collection recursively for val. Returns True if val found, False if val not found.
+    If collection is not iterable tests collection == val . E.g. inrecursive(6,6) == True
     """
-    def _in(seq, val):
+    def _in(collection, val):
         found = False
-        for x in seq:
+        for x in collection:
             found = (x == val)
             if found: break
+            else: #could be a non-iterable container returned by flatten
+                try:
+                    found = val in x
+                except TypeError:
+                    ...
+                if found: break
         return found
 
-    return _in(flatten(seq),val)
+    return _in(flatten(collection),val)
 
 class NotFoundError(LookupError):
     pass
@@ -136,3 +152,33 @@ def indexrecursive(seq, val):
             return (seq.index(val),)
     except ValueError: #not found but supports index, aasume also iterable
         return _lookinchildren(seq, val)
+
+class Nonexistent(object):
+    instance = None
+    
+    def __new__(cls):
+        if cls.instance is None:
+            cls.instance = super().__new__(cls)
+        return cls.instance
+    
+    def __repr__(self) -> str:
+        return "<Nonexistent>"
+
+    def __str__(self) -> str:
+        return "Nonexistent"
+
+class nested(Collection):
+    def __init__(self, nestedcontainer: Container) -> None:
+        self.nestedcontainer = nestedcontainer
+    
+    def __contains__(self, __o: object) -> bool:
+        return inrecursive(self.nestedcontainer, __o)
+
+    def __len__(self):
+        return lenrecursive(self.nestedcontainer)
+
+    def __iter__(self):
+        return flatten(self.nestedcontainer)
+
+    def count(self, __o):
+        return countrecursive(self.nestedcontainer, __o)

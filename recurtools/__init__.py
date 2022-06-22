@@ -5,5 +5,6 @@ from .utils import countrecursive
 from .utils import inrecursive
 from .utils import indexrecursive
 from .utils import chainanything
+from .utils import nested
 
-__all__ = ['flatten', 'lenrecursive', 'sumrecursive', 'countrecursive', 'inrecursive', 'indexrecursive', 'chainanything']
+__all__ = ['flatten', 'lenrecursive', 'sumrecursive', 'countrecursive', 'inrecursive', 'indexrecursive', 'chainanything', 'nested']
