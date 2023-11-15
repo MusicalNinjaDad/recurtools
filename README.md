@@ -21,6 +21,14 @@ input = [1,2,[3,4,[5],6],7,[8,9]]
 assert [x for x in flatten(input)] == [1,2,3,4,5,6,7,8,9]
 ```
 
+New in 0.3.0: Optional argument `preservestrings` (default: `False`) will not flatten strings:
+
+```python
+from recurtools import flatten
+input = ['ab',3,('cd','e')]
+assert [x for x in flatten(input, preservestrings=True)] == ['ab',3,'cd','e']
+```
+
 ### nested
 
 A `Container` which implements `lenrecursive`, `countrecursive`, `inrecursive` and `flatten` for `len()`, `.count()`, `in` and `for x in`

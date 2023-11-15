@@ -1,21 +1,26 @@
 from contextlib import contextmanager
 from typing import Collection, Container, Sequence, Sized
 
-def flatten(nestediterable):
+def flatten(nestediterable, preservestrings = False):
     """
     Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
     E.g.: [1,2,[3,4,[5],6],7,[8,9]] -> [1,2,3,4,5,6,7,8,9]
+
+    preservestrings = True: will not flatten strings to individual characters
     """
     try:
         iter(nestediterable)
     except TypeError:
         yield nestediterable
     else:
-        for item in nestediterable:
-            if item is nestediterable: #catch e.g. a single char string
-                yield item
-            else:
-                yield from flatten(item)
+        if preservestrings and isinstance(nestediterable, (str, bytes)):
+                yield nestediterable
+        else:
+            for item in nestediterable:
+                if item is nestediterable: #catch e.g. a single char string
+                    yield item
+                else:
+                    yield from flatten(item, preservestrings)
 
 def chainanything(*args, preservestrings=True, recursive=False):
     """

@@ -34,3 +34,16 @@ def test_dict():
         9: 10,
     }
     assert [x for x in flatten(input)] == [1,4,6,7,9]
+
+def test_dict_values():
+    input = {
+        1: (2,3),
+        4: 5,
+        (6,7): 8,
+        9: 10,
+    }
+    assert [x for x in flatten(input.values())] == [2,3,5,8,10]
+
+def test_preservestrings():
+    input = ['ab',3,('cd','e')]
+    assert [x for x in flatten(input, preservestrings=True)] == ['ab',3,'cd','e']
