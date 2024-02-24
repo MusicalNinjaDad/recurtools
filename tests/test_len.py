@@ -1,4 +1,4 @@
-from .. import lenrecursive
+from recurtools import lenrecursive
 from numpy import array
 
 # https://stackoverflow.com/questions/72321903/deep-list-count-count-lists-within-lists

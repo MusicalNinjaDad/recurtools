@@ -1,6 +1,6 @@
 from pytest import raises
-from .. import indexrecursive
-from ..recurtools.utils import NotFoundError
+from recurtools import indexrecursive
+from recurtools.utils import NotFoundError
 
 # https://stackoverflow.com/questions/72321903/deep-list-count-count-lists-within-lists
 

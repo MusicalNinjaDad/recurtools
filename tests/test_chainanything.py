@@ -1,4 +1,4 @@
-from .. import chainanything
+from recurtools import chainanything
 
 def test_splitstring():
     a = [1, 2, 3]

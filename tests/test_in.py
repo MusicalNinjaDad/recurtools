@@ -1,6 +1,6 @@
 
 from typing import Container
-from .. import inrecursive
+from recurtools import inrecursive
 
 # https://stackoverflow.com/questions/72321903/deep-list-count-count-lists-within-lists
 

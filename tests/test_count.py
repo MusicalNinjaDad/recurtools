@@ -1,4 +1,4 @@
-from .. import countrecursive
+from recurtools import countrecursive
 
 # https://stackoverflow.com/questions/72321903/deep-list-count-count-lists-within-lists
 

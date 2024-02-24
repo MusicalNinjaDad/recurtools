@@ -1,4 +1,4 @@
-from .. import nested
+from recurtools import nested
 
 def test_storescollection():
     input = [1,2,[3,4,[5],6],7,[8,9]]
