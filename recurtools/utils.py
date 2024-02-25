@@ -1,16 +1,21 @@
-from collections.abc import Collection, Container, Sequence, Sized  # noqa: D100
+from collections.abc import Collection, Container, Iterable, Sequence, Sized  # noqa: D100
 from contextlib import contextmanager
+from typing import Generator
 
 
-def flatten(nestediterable, preservestrings = False):  # noqa: ANN001, ANN201, FBT002
+def flatten(nestediterable: Iterable, preservestrings: bool = False) -> Generator:  # noqa: FBT001, FBT002
     """
     Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
 
     Args:
     ----
     nestediterable: The nested iterable to flatten
-    
+
     preservestrings: If `True`, do not split strings into individual characters. (default `False`)
+
+    Yields:
+    ------
+    Each element from `nestediterable`
 
     Examples:
     --------
@@ -18,6 +23,17 @@ def flatten(nestediterable, preservestrings = False):  # noqa: ANN001, ANN201, F
     >>> [x for x in flatten([1,2,[3,4,[5],6],7,[8,9]])]
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
     ```
+
+    ```
+    >>> [x for x in flatten([1,2,"abc",[3,4]])]
+    [1, 2, 'a', 'b', 'c', 3, 4]
+    ```
+
+    ```
+    >>> [x for x in flatten([1,2,"abc",[3,4]], preservestrings = True)]
+    [1, 2, 'abc', 3, 4]
+    ```
+
     """
     try:
         iter(nestediterable)
