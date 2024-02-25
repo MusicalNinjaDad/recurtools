@@ -1,4 +1,5 @@
 from pytest import raises
+
 from recurtools import indexrecursive
 from recurtools.utils import NotFoundError
 

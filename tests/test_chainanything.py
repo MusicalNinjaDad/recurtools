@@ -1,5 +1,6 @@
 from recurtools import chainanything
 
+
 def test_splitstring():
     a = [1, 2, 3]
     b = "de"
@@ -26,10 +27,10 @@ def test_flatten():
     assert [x for x in chainanything(a,b,c,d,e, recursive=True, preservestrings=False)] == [1, 2, 3, "d","e", 5, 4, 5, 23, 11, 5, "d","g", "k","u","k","u"]
 
 def test_docstring():
-    a = 'abc'
-    b = ['ab','cd']
-    assert [x for x in chainanything(a, preservestrings=False, recursive=False)] == ['a','b','c']
-    assert [x for x in chainanything(b, preservestrings=False, recursive=False)] == ['ab','cd']
+    a = "abc"
+    b = ["ab","cd"]
+    assert [x for x in chainanything(a, preservestrings=False, recursive=False)] == ["a","b","c"]
+    assert [x for x in chainanything(b, preservestrings=False, recursive=False)] == ["ab","cd"]
 
 def test_join():
     a = [1, 2, 3]
@@ -37,4 +38,4 @@ def test_join():
     c = 5
     d = [4, 5, 23, 11, 5]
     e = ["dg", "kuku"]
-    assert ''.join(map(str,chainanything(a,b,c,d,e))) == "123de54523115dgkuku"
+    assert "".join(map(str,chainanything(a,b,c,d,e))) == "123de54523115dgkuku"

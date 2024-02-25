@@ -1,5 +1,6 @@
 from recurtools.utils import Nonexistent
 
+
 def test_instantiation():
     exists = Nonexistent()
     assert isinstance(exists, Nonexistent)

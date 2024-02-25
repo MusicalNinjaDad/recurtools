@@ -6,4 +6,4 @@ def test_count_ints():
     assert countrecursive([1, 2, [3, 2]],2) == 2
 
 def test_count_strs():
-    assert countrecursive(["ab", "b", ["c", "db", ["e","bob"]]],'b') == 5
+    assert countrecursive(["ab", "b", ["c", "db", ["e","bob"]]],"b") == 5

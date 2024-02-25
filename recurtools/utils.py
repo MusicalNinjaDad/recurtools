@@ -1,5 +1,6 @@
+from collections.abc import Collection, Container, Sequence, Sized
 from contextlib import contextmanager
-from typing import Collection, Container, Sequence, Sized
+
 
 def flatten(nestediterable, preservestrings = False):
     """
@@ -25,10 +26,10 @@ def flatten(nestediterable, preservestrings = False):
 def chainanything(*args, preservestrings=True, recursive=False):
     """
     Generator: yields the contents of an iterable, or the given object if not a iterable, one at a time
-    
+
     preservestrings = False will lead to strings being yielded as individual characters. Default = True
     recursive = True will recursively flatten container. Default = False
-    
+
     Note: preservestrings = False, recursive = False will only flatten strings which are not part of another container.
     e.g.: 'abc' -> 'a','b','c' but ['ab','cd'] -> 'ab','cd'
     """
@@ -47,22 +48,24 @@ def chainanything(*args, preservestrings=True, recursive=False):
 def lenrecursive(container, countcontainers=False):
     """
     Returns total number of node elements in the (nested) container
-    
+
     countcontainers=True: counts container collections and node elements.
     This is effectively recursively sum(len(c for c in container))
+
     Note:
+    ----
         In this case if no elements support len the return will be 0, no TypeError will be raised
         lenrecursive(6) == 1
         lenrecursive(6, True) == 0
+
     """
-    
     if countcontainers:
         def _len(x):
             try:
                 return len(x)
             except TypeError: #no len
                 return 0
-        
+
         try:
             return _len(container) + sum(lenrecursive(c, countcontainers=True) for c in container if c is not container)
         except TypeError: #not iterable
@@ -86,7 +89,7 @@ def sumrecursive(seq):
             except TypeError:
                 pass
         return s
-    
+
     return _sum(flatten(seq))
 
 def countrecursive(collection,val):
@@ -100,7 +103,7 @@ def countrecursive(collection,val):
             if x == val:
                 count_ += 1
         return count_
-    
+
     return _count(flatten(collection),val)
 
 def inrecursive(collection,val):
@@ -158,14 +161,14 @@ def indexrecursive(seq, val):
     except ValueError: #not found but supports index, aasume also iterable
         return _lookinchildren(seq, val)
 
-class Nonexistent(object):
+class Nonexistent:
     instance = None
-    
+
     def __new__(cls):
         if cls.instance is None:
             cls.instance = super().__new__(cls)
         return cls.instance
-    
+
     def __repr__(self) -> str:
         return "<Nonexistent>"
 
@@ -175,7 +178,7 @@ class Nonexistent(object):
 class nested(Collection):
     def __init__(self, nestedcontainer: Container) -> None:
         self.nestedcontainer = nestedcontainer
-    
+
     def __contains__(self, __o: object) -> bool:
         return inrecursive(self.nestedcontainer, __o)
 
