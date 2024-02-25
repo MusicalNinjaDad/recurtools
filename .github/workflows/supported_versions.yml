@@ -1,0 +1,15 @@
+# See which version(s) github would run if left to it's own devices
+
+name: Identify supported python version(s)
+
+on: push
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: 'pyproject.toml'
