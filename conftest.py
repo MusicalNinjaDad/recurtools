@@ -1,4 +1,4 @@
-# noqa: D100, INP001
+# noqa: D100
 
 def pytest_sessionstart(session) -> None:  # noqa: ANN001, ARG001
     """
