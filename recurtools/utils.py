@@ -11,7 +11,6 @@ def flatten(nestediterable, preservestrings = False):  # noqa: ANN001, ANN201, F
     ```
     >>> [x for x in flatten([1,2,[3,4,[5],6],7,[8,9]])]
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
     ```
 
     preservestrings = True: will not flatten strings to individual characters
