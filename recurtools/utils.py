@@ -6,8 +6,8 @@ def flatten(nestediterable, preservestrings = False):  # noqa: ANN001, ANN201, F
     """
     Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
 
-    Example:
-    -------
+    Examples:
+    --------
     ```
     >>> [x for x in flatten([1,2,[3,4,[5],6],7,[8,9]])]
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
