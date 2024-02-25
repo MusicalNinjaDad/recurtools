@@ -70,6 +70,7 @@ ignore = [
     "ANN101", # Type annotation for `self`
     "ANN202", # Return type annotation for private functions
     "T", # `Print` statements
+    "W293", # Whitespace only lines are OK for us
     ]
 extend-select = [
     "D211", # We want D211 - no blank line before class docstring
