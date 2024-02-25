@@ -41,6 +41,9 @@ dev = [
 
 [tool.pytest.ini_options]
 xfail_strict=true
+addopts = [
+    "--doctest-modules",
+]
 
 [tool.coverage.run]
 branch=true
@@ -54,6 +57,9 @@ format.quote-style = "double"
 
 [tool.ruff.lint]
 select = ["ALL"]
+flake8-pytest-style.fixture-parentheses = false
+flake8-annotations.mypy-init-return = true
+pydocstyle.convention = "google"
 ignore = [
     "D1", # Missing Doc-Strings
     "D203", # We want D211 - no blank line before class docstring
@@ -61,10 +67,12 @@ ignore = [
     "ANN101", # Type annotation for `self`
     "ANN202", # Return type annotation for private functions
     "T", # `Print` statements
-    ] 
-flake8-pytest-style.fixture-parentheses = false
-flake8-annotations.mypy-init-return = true
-
+    ]
+extend-select = [
+    "D211", # We want D211 - no blank line before class docstring
+    "D213", # We want D213 - Multiline docstrings start on second line
+    "D400", # First lines should end in a period (.)
+]
 
 [tool.ruff.lint.per-file-ignores]
 # Additional ignores for tests 

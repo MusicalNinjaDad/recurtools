@@ -5,10 +5,13 @@ from contextlib import contextmanager
 def flatten(nestediterable, preservestrings = False):  # noqa: ANN001, ANN201, FBT002
     """
     Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
-    E.g.: [1,2,[3,4,[5],6],7,[8,9]] -> [1,2,3,4,5,6,7,8,9]
+
+    Example:
+    >>> [x for x in flatten([1,2,[3,4,[5],6],7,[8,9]])]
+    [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     preservestrings = True: will not flatten strings to individual characters
-    """  # noqa: D205, D400, D415
+    """
     try:
         iter(nestediterable)
     except TypeError:
@@ -32,7 +35,7 @@ def chainanything(*args, preservestrings=True, recursive=False):  # noqa: ANN001
 
     Note: preservestrings = False, recursive = False will only flatten strings which are not part of another container.
     e.g.: 'abc' -> 'a','b','c' but ['ab','cd'] -> 'ab','cd'
-    """  # noqa: D400, D401, D415
+    """  # noqa: D400, D415
     args = [*args]
     for arg in args:
         if not isinstance(arg, Sequence):
@@ -58,7 +61,7 @@ def lenrecursive(container, countcontainers=False):  # noqa: ANN001, ANN201, FBT
         lenrecursive(6) == 1
         lenrecursive(6, True) == 0
 
-    """  # noqa: D400, D401, D415
+    """  # noqa: D400, D415
     if countcontainers:
         def _len(x):  # noqa: ANN001
             try:
@@ -80,7 +83,7 @@ def sumrecursive(seq):  # noqa: ANN001, ANN201
     """
     Returns total sum of all elements recursively.
     If no elements support sum then return will be 0, no TypeError will be raised
-    """  # noqa: D205, D400, D401, D415
+    """  # noqa: D205, D400, D415
     def _sum(seq):  # noqa: ANN001
         s = 0
         for x in seq:
@@ -96,7 +99,7 @@ def countrecursive(collection,val):  # noqa: ANN001, ANN201
     """
     Returns total count of occurences of val in (nested) collection recursively.
     If no elements contain val then return will be 0
-    """  # noqa: D205, D400, D401, D415
+    """  # noqa: D205, D400, D415
     def _count(collection,val):  # noqa: ANN001
         count_ = 0
         for x in collection:
@@ -110,7 +113,7 @@ def inrecursive(collection,val):  # noqa: ANN001, ANN201
     """
     Searches (nested) collection recursively for val. Returns True if val found, False if val not found.
     If collection is not iterable tests collection == val . E.g. inrecursive(6,6) == True
-    """  # noqa: D205, D400, D401, D415
+    """  # noqa: D205, D400, D415
     def _in(collection, val):  # noqa: ANN001
         found = False
         for x in collection:
