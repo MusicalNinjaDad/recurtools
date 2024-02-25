@@ -6,14 +6,18 @@ def flatten(nestediterable, preservestrings = False):  # noqa: ANN001, ANN201, F
     """
     Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
 
+    Args:
+    ----
+    nestediterable: The nested iterable to flatten
+    
+    preservestrings: If `True`, do not split strings into individual characters. (default `False`)
+
     Examples:
     --------
     ```
     >>> [x for x in flatten([1,2,[3,4,[5],6],7,[8,9]])]
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
     ```
-
-    preservestrings = True: will not flatten strings to individual characters
     """
     try:
         iter(nestediterable)
