@@ -69,7 +69,6 @@ ignore = [
     "D401", # First line of docstring does not need to be in imperative mood 
     "ANN101", # Type annotation for `self`
     "ANN202", # Return type annotation for private functions
-    "T", # `Print` statements
     "W293", # Whitespace only lines are OK for us
     ]
 extend-select = [
