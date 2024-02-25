@@ -9,7 +9,7 @@ readme = "README.md"
 license = {text = "MIT"}
 authors = [{name = "Mike Foster"}]
 dynamic = ["version"]
-requires-python = ">=3.9"
+requires-python = ">=3.7"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
