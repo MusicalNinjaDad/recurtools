@@ -9,4 +9,4 @@ from .utils import (
     sumrecursive,
 )
 
-__all__ = ["flatten", "lenrecursive", "sumrecursive", "countrecursive", "inrecursive", "indexrecursive", "chainanything", "nested"]
+__all__ = ["flatten", "lenrecursive", "sumrecursive", "countrecursive", "inrecursive", "indexrecursive", "chainanything", "nested"]  # noqa: E501

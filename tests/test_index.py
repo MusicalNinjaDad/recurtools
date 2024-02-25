@@ -1,4 +1,4 @@
-from pytest import raises
+from pytest import raises  # noqa: PT013
 
 from recurtools import indexrecursive
 from recurtools.utils import NotFoundError
