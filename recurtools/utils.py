@@ -1,4 +1,4 @@
-from collections.abc import Collection, Container, Sequence, Sized
+from collections.abc import Collection, Container, Sequence, Sized  # noqa: D100
 from contextlib import contextmanager
 
 
@@ -7,8 +7,12 @@ def flatten(nestediterable, preservestrings = False):  # noqa: ANN001, ANN201, F
     Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
 
     Example:
+    -------
+    ```
     >>> [x for x in flatten([1,2,[3,4,[5],6],7,[8,9]])]
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    ```
 
     preservestrings = True: will not flatten strings to individual characters
     """
@@ -76,7 +80,7 @@ def lenrecursive(container, countcontainers=False):  # noqa: ANN001, ANN201, FBT
     else:
         return len([x for x in flatten(container)])  # noqa: C416
 
-def lenrecursiveshort(seq):  # noqa: ANN001, ANN201
+def lenrecursiveshort(seq):  # noqa: ANN001, ANN201, D103
     return len(seq) + sum(lenrecursiveshort(s) for s in seq if isinstance(s,Sized) and not isinstance(s, str))
 
 def sumrecursive(seq):  # noqa: ANN001, ANN201
@@ -129,27 +133,27 @@ def inrecursive(collection,val):  # noqa: ANN001, ANN201
 
     return _in(flatten(collection),val)
 
-class NotFoundError(LookupError):
+class NotFoundError(LookupError):  # noqa: D101
     pass
 
-class NoIndexError(LookupError):
+class NoIndexError(LookupError):  # noqa: D101
     pass
 
 @contextmanager
-def ignoreException(ExceptionType):  # noqa: ANN001, ANN201, N802, N803
+def ignoreException(ExceptionType):  # noqa: ANN001, ANN201, D103, N802, N803
     try:  # noqa: SIM105
         yield
     except ExceptionType:
         pass
 
 @contextmanager
-def swapException(OriginalException, NewException):  # noqa: ANN001, ANN201, N802, N803
+def swapException(OriginalException, NewException):  # noqa: ANN001, ANN201, D103, N802, N803
     try:
         yield
     except OriginalException:
         raise NewException  # noqa: B904
 
-def indexrecursive(seq, val):  # noqa: ANN001, ANN201
+def indexrecursive(seq, val):  # noqa: ANN001, ANN201, D103
 
     def _lookinchildren(seq, val):  # noqa: ANN001
         for i, s in enumerate(seq):
@@ -164,32 +168,32 @@ def indexrecursive(seq, val):  # noqa: ANN001, ANN201
     except ValueError: #not found but supports index, aasume also iterable
         return _lookinchildren(seq, val)
 
-class Nonexistent:
+class Nonexistent:  # noqa: D101
     instance = None
 
-    def __new__(cls):  # noqa: ANN204
+    def __new__(cls):  # noqa: ANN204, D102
         if cls.instance is None:
             cls.instance = super().__new__(cls)
         return cls.instance
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # noqa: D105
         return "<Nonexistent>"
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # noqa: D105
         return "Nonexistent"
 
-class nested(Collection):  # noqa: N801
-    def __init__(self, nestedcontainer: Container) -> None:
+class nested(Collection):  # noqa: D101, N801
+    def __init__(self, nestedcontainer: Container) -> None:  # noqa: D107
         self.nestedcontainer = nestedcontainer
 
-    def __contains__(self, __o: object) -> bool:
+    def __contains__(self, __o: object) -> bool:  # noqa: D105
         return inrecursive(self.nestedcontainer, __o)
 
-    def __len__(self):  # noqa: ANN204
+    def __len__(self):  # noqa: ANN204, D105
         return lenrecursive(self.nestedcontainer)
 
-    def __iter__(self):  # noqa: ANN204
+    def __iter__(self):  # noqa: ANN204, D105
         return flatten(self.nestedcontainer)
 
-    def count(self, __o):  # noqa: ANN001, ANN201
+    def count(self, __o):  # noqa: ANN001, ANN201, D102
         return countrecursive(self.nestedcontainer, __o)

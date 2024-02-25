@@ -64,9 +64,9 @@ flake8-pytest-style.fixture-parentheses = false
 flake8-annotations.mypy-init-return = true
 pydocstyle.convention = "google"
 ignore = [
-    "D1", # Missing Doc-Strings
     "D203", # We want D211 - no blank line before class docstring
-    "D212", # We want D213 - Multiline docstrings start on second line 
+    "D212", # We want D213 - Multiline docstrings start on second line
+    "D401", # First line of docstring does not need to be in imperative mood 
     "ANN101", # Type annotation for `self`
     "ANN202", # Return type annotation for private functions
     "T", # `Print` statements
@@ -75,6 +75,13 @@ extend-select = [
     "D211", # We want D211 - no blank line before class docstring
     "D213", # We want D213 - Multiline docstrings start on second line
     "D400", # First lines should end in a period (.)
+    "D403", # First word of the first line should be capitalized
+    "D404", # First word of the docstring should not be "This"
+    "D405", # Section name should be properly capitalized 
+    "D406", # Section name should end with a newline
+    "D407", # Dashed underline after section
+    "D408", # Section underline should be in the line following the section's name
+    "D409", # Section underline should match the length of its name
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -83,4 +90,5 @@ extend-select = [
     "INP001", # Missing __init__.py
     "ANN", # Missing type annotations
     "S101", # Use of `assert`
+    "D1", # Don't REQUIRE docstrings for tests - but they are nice
     ]

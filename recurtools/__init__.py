@@ -1,4 +1,4 @@
-from .utils import (
+from .utils import (  # noqa: D104
     chainanything,
     countrecursive,
     flatten,
