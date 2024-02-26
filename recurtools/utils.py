@@ -57,7 +57,9 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
                     yield from flatten(item, dontflatten=dontflatten)
 
 
-def chainanything(*args: Any, dontflatten=stringlike, recursive=False) -> Generator[Any]:  # noqa: ANN001, ANN401
+def chainanything(
+    *args: Any, dontflatten: type | Iterable[type] | None = stringlike, recursive: bool = False,  # noqa: ANN401
+) -> Generator[Any]:
     """
     Generator: yields the contents of an iterable, or the given object if not a iterable, one at a time
 
