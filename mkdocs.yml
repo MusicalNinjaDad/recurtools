@@ -1,4 +1,6 @@
 site_name: "recurtools"
+repo_url: https://github.com/MusicalNinjaDad/recurtools
+repo_name: MusicalNinjaDad/recurtools
 
 theme:
   name: "material"
