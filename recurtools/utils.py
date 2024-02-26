@@ -70,7 +70,7 @@ def chainanything(*args, preservestrings=True, recursive=False):  # noqa: ANN001
             if preservestrings and isinstance(arg, str):
                 yield arg
             elif recursive:
-                yield from flatten(arg)
+                yield from flatten(arg, dontflatten=None)
             else:
                 yield from arg
 
