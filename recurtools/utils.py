@@ -19,7 +19,11 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
 
     Yields:
     ------
-    Each element from `nestediterable`
+    Each element from `nestediterable`.
+
+    !!! Note "bytes"
+        `bytes` are flattened into individual `int` codes, unless `dontflatten` includes `bytes`.
+        See [PEP467](https://peps.python.org/pep-0467/) for more background
 
     Examples:
     --------
