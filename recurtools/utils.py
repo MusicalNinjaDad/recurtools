@@ -3,7 +3,7 @@ from contextlib import contextmanager
 from typing import Generator
 
 
-def flatten(nestediterable: Iterable, preservestrings: bool = False) -> Generator:  # noqa: FBT001, FBT002
+def flatten(nestediterable: Iterable, preservestrings: bool = False, dontflatten = None) -> Generator:  # noqa: FBT001, FBT002
     """
     Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
 
@@ -41,13 +41,15 @@ def flatten(nestediterable: Iterable, preservestrings: bool = False) -> Generato
         yield nestediterable
     else:
         if preservestrings and isinstance(nestediterable, (str, bytes)):
-                yield nestediterable
+            yield nestediterable
+        elif dontflatten and isinstance(nestediterable, dontflatten):
+            yield nestediterable
         else:
             for item in nestediterable:
                 if item is nestediterable: #catch e.g. a single char string
                     yield item
                 else:
-                    yield from flatten(item, preservestrings)
+                    yield from flatten(item, preservestrings, dontflatten)
 
 def chainanything(*args, preservestrings=True, recursive=False):  # noqa: ANN001, ANN002, ANN201
     """
