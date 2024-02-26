@@ -39,7 +39,7 @@ dev = [
     "mkdocs-material",
     "numpy",
     "pytest",
-    "pytest-doctest-mkdocstring",
+    "pytest-doctest-mkdocstrings",
     "ruff",
     ]
 
