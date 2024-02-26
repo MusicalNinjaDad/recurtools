@@ -71,9 +71,11 @@ def chainanything(
     """  # noqa: D400, D415
     args = [*args]
     for arg in args:
-        if not isinstance(arg, Sequence):
+        try:
+            iter(arg)
+        except TypeError:  # noqa: PERF203
             yield arg
-        else:  # noqa: PLR5501
+        else:
             if dontflatten and isinstance(arg, dontflatten):
                 yield arg
             elif recursive:
