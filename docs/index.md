@@ -1,25 +1,16 @@
-# Welcome to MkDocs
+# Welcome to recurtools
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+So many questions on StackExchange take the form "How do I ... with a nested list?".
+Here are some tools and helpers I developed to solve those kinds of problems
 
-## Commands
+!!! danger "unstable interface"
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+    This is a 0.x.x version because I am not yet happy with the function naming. Expect the API to change.
 
-## Project layout
+Currently standard functionality is to traverse left-to-right as the collection would be output by `print()`
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+!!! warning "A note on strings"
 
-## utils
+    Handling of strings is not yet consistent. Sometimes they are separated into individual characters, and sometimes preserved as whole strings. This will be standardised by the v1.0.0 release and any further changes will be considered "breaking"
 
-Output of `::: recurtools`
 ::: recurtools
-
-Output of `::: recurtools.utils`
-::: recurtools.utils

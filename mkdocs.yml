@@ -2,6 +2,9 @@ site_name: "recurtools"
 repo_url: https://github.com/MusicalNinjaDad/recurtools
 repo_name: MusicalNinjaDad/recurtools
 
+watch:
+- recurtools # To update live preview when docstrings change
+
 theme:
   name: "material"
 
@@ -9,5 +12,7 @@ plugins:
 - search
 - mkdocstrings
 
-watch:
-- recurtools # To update live preview when docstrings change
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
