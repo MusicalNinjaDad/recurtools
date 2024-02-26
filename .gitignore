@@ -37,6 +37,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# mkdocs site cache - this breaks github language statistics
+site/
+
 # VSCode - User preferences belong in a workspace file
 *.code-workspace
 
