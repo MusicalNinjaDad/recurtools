@@ -22,9 +22,9 @@ def test_nested_list_len1_str():
     assert [x for x in flatten(nested)] == [1,2,3,"a"]  # noqa: C416
 
 def test_set():
-    nested = {1,(2,3),(4,(5,)),"ab"}
+    nested = {1,(2,3),(4,(5,)),"a"}
     flat = [x for x in flatten(nested)]  # noqa: C416
-    for x in [1,2,3,4,5,"a","b"]:
+    for x in [1,2,3,4,5,"a"]:
         assert flat.count(x) == 1
 
 def test_dict():
@@ -48,3 +48,7 @@ def test_dict_values():
 def test_dontflatten_str():
     nested = ["ab",3,("cd","e")]
     assert list(flatten(nested, dontflatten=str)) == ["ab",3,"cd","e"]
+
+def test_flatten_str():
+    nested = ["ab",3,("cd","e")]
+    assert list(flatten(nested, dontflatten=None)) == ["a","b",3,"c","d","e"]
