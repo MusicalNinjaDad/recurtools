@@ -24,7 +24,7 @@ Homepage = "https://github.com/MusicalNinjaDad/recurtools"
 # Documentation = "https://github.com/MusicalNinjaDad/recurtools"
 Repository = "https://github.com/MusicalNinjaDad/recurtools"
 Issues = "https://github.com/MusicalNinjaDad/recurtools/issues"
-# Changelog = ""
+Changelog = "https://github.com/MusicalNinjaDad/recurtools/blob/main/CHANGELOG.md"
 
 [tool.setuptools.dynamic]
 version = {file = "__version__"}
@@ -67,9 +67,11 @@ pydocstyle.convention = "google"
 ignore = [
     "D203", # We want D211 - no blank line before class docstring
     "D212", # We want D213 - Multiline docstrings start on second line
-    "D401", # First line of docstring does not need to be in imperative mood 
+    "D401", # First line of docstring does not need to be in imperative mood
+    "D417", # Undocumented arguments - need to switch off if wrapping args in `arg`
     "ANN101", # Type annotation for `self`
     "ANN202", # Return type annotation for private functions
+    "W291", # Double space at EOL is linebreak in md-docstring
     "W293", # Whitespace only lines are OK for us
     ]
 extend-select = [

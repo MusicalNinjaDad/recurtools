@@ -4,6 +4,7 @@ So many questions on StackExchange take the form "How do I ... with a nested lis
 Here are some tools and helpers I developed to solve those kinds of problems
 
 **WARNING** This is a 0.x.x version because I am not yet happy with the function naming. Expect the API to change.
+v0.4.0 made breaking changes to string handling in `flatten` - see Changelog for more details.
 
 Currently standard functionality is to traverse left-to-right as the collection would be output by `print()`
 
