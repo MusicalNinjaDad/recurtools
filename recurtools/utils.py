@@ -3,15 +3,13 @@ from contextlib import contextmanager
 from typing import Generator
 
 
-def flatten(nestediterable: Iterable, preservestrings: bool = False, dontflatten = None) -> Generator:  # noqa: FBT001, FBT002
+def flatten(nestediterable: Iterable, *, dontflatten = None) -> Generator:
     """
-    Recursively flattens a nested iterable (including strings!) and returns all elements in order left to right.
+    Recursively flattens a nested iterable and returns all elements in order left to right.
 
     Args:
     ----
     nestediterable: The nested iterable to flatten
-
-    preservestrings: If `True`, do not split strings into individual characters. (default `False`)
 
     Yields:
     ------
@@ -29,27 +27,20 @@ def flatten(nestediterable: Iterable, preservestrings: bool = False, dontflatten
     [1, 2, 'a', 'b', 'c', 3, 4]
     ```
 
-    ```
-    >>> [x for x in flatten([1,2,"abc",[3,4]], preservestrings = True)]
-    [1, 2, 'abc', 3, 4]
-    ```
-
     """
     try:
         iter(nestediterable)
     except TypeError:
         yield nestediterable
     else:
-        if preservestrings and isinstance(nestediterable, (str, bytes)):
-            yield nestediterable
-        elif dontflatten and isinstance(nestediterable, dontflatten):
+        if dontflatten and isinstance(nestediterable, dontflatten):
             yield nestediterable
         else:
             for item in nestediterable:
                 if item is nestediterable: #catch e.g. a single char string
                     yield item
                 else:
-                    yield from flatten(item, preservestrings, dontflatten)
+                    yield from flatten(item, dontflatten=dontflatten)
 
 def chainanything(*args, preservestrings=True, recursive=False):  # noqa: ANN001, ANN002, ANN201
     """

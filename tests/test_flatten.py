@@ -45,10 +45,6 @@ def test_dict_values():
     }
     assert [x for x in flatten(nested.values())] == [2,3,5,8,10]  # noqa: C416
 
-def test_preservestrings():
-    nested = ["ab",3,("cd","e")]
-    assert [x for x in flatten(nested, preservestrings=True)] == ["ab",3,"cd","e"]  # noqa: C416
-
 def test_dontflatten_str():
     nested = ["ab",3,("cd","e")]
     assert list(flatten(nested, dontflatten=str)) == ["ab",3,"cd","e"]
