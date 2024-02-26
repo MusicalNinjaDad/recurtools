@@ -52,3 +52,7 @@ def test_dontflatten_str():
 def test_flatten_str():
     nested = ["ab",3,("cd","e")]
     assert list(flatten(nested, dontflatten=None)) == ["a","b",3,"c","d","e"]
+
+def test_dontflatten_bytes():
+    nested = ["ab",3,(b"cd",b"e")]
+    assert list(flatten(nested)) == ["ab",3,b"cd",b"e"]

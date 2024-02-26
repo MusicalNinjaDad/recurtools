@@ -4,8 +4,9 @@ from collections.abc import Collection, Container, Iterable, Sequence, Sized
 from contextlib import contextmanager
 from typing import Generator
 
+stringlike = (str, bytes)
 
-def flatten(nestediterable: Iterable, *, dontflatten: type | None = str) -> Generator:
+def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | None = stringlike) -> Generator:
     """
     Recursively flattens a nested iterable and returns all elements in order left to right.
 
