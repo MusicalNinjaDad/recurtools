@@ -12,9 +12,9 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
 
     Args:
     ----
-    nestediterable: The nested iterable to flatten
+    `nestediterable`: The nested iterable to flatten
 
-    dontflatten: Optional type which will not be flattened. Default: (str, bytes).
+    `dontflatten`: Optional type which will not be flattened. Default: `(str, bytes)`.  
     If you want to flatten strings then use `dontflatten=None`.
 
     Yields:
