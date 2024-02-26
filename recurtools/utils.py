@@ -1,6 +1,6 @@
 from __future__ import annotations  # noqa: D100
 
-from collections.abc import Collection, Container, Iterable, Sequence, Sized
+from collections.abc import Collection, Container, Iterable, Sized
 from contextlib import contextmanager
 from typing import Any, Generator
 
