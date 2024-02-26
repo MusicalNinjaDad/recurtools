@@ -1,4 +1,5 @@
-from ..recurtools.utils import Nonexistent
+from recurtools.utils import Nonexistent
+
 
 def test_instantiation():
     exists = Nonexistent()

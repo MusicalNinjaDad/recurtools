@@ -1,10 +1,12 @@
-from .utils import flatten
-from .utils import lenrecursive
-from .utils import sumrecursive
-from .utils import countrecursive
-from .utils import inrecursive
-from .utils import indexrecursive
-from .utils import chainanything
-from .utils import nested
+from .utils import (  # noqa: D104
+    chainanything,
+    countrecursive,
+    flatten,
+    indexrecursive,
+    inrecursive,
+    lenrecursive,
+    nested,
+    sumrecursive,
+)
 
-__all__ = ['flatten', 'lenrecursive', 'sumrecursive', 'countrecursive', 'inrecursive', 'indexrecursive', 'chainanything', 'nested']
+__all__ = ["flatten", "lenrecursive", "sumrecursive", "countrecursive", "inrecursive", "indexrecursive", "chainanything", "nested"]  # noqa: E501

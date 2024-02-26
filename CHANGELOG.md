@@ -1,0 +1,7 @@
+# Changelog: recurtools
+
+## v0.3.1 - Migrate to GitHub
+- Repository is now located on GitHub (previously ADO).
+- All future code changes will be linted by ruff following most of the full rule set. Rule exclusions are documented in `pyproject.toml`; existing code base will be migrated over time.
+- Test coverage is visible on https://codecov.io
+- Initial preparation for mkdocs / mkdocstring based documentation
