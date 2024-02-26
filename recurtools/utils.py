@@ -140,7 +140,7 @@ def countrecursive(collection, val):  # noqa: ANN001, ANN201
                 count_ += 1
         return count_
 
-    return _count(flatten(collection), val)
+    return _count(flatten(collection, dontflatten=None), val)
 
 
 def inrecursive(collection, val):  # noqa: ANN001, ANN201
