@@ -24,7 +24,7 @@ Homepage = "https://github.com/MusicalNinjaDad/recurtools"
 # Documentation = "https://github.com/MusicalNinjaDad/recurtools"
 Repository = "https://github.com/MusicalNinjaDad/recurtools"
 Issues = "https://github.com/MusicalNinjaDad/recurtools/issues"
-# Changelog = ""
+Changelog = "https://github.com/MusicalNinjaDad/recurtools/blob/main/CHANGELOG.md"
 
 [tool.setuptools.dynamic]
 version = {file = "__version__"}
