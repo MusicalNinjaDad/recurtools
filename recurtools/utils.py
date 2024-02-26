@@ -2,7 +2,7 @@ from __future__ import annotations  # noqa: D100
 
 from collections.abc import Collection, Container, Iterable, Sequence, Sized
 from contextlib import contextmanager
-from typing import Generator
+from typing import Any, Generator
 
 stringlike = (str, bytes)
 
@@ -57,7 +57,7 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
                     yield from flatten(item, dontflatten=dontflatten)
 
 
-def chainanything(*args, preservestrings=True, recursive=False):  # noqa: ANN001, ANN002, ANN201
+def chainanything(*args: Any, preservestrings=True, recursive=False) -> Generator[Any]:  # noqa: ANN001, ANN401
     """
     Generator: yields the contents of an iterable, or the given object if not a iterable, one at a time
 
