@@ -1,15 +1,19 @@
-from collections.abc import Collection, Container, Iterable, Sequence, Sized  # noqa: D100
+from __future__ import annotations  # noqa: D100
+
+from collections.abc import Collection, Container, Iterable, Sequence, Sized
 from contextlib import contextmanager
 from typing import Generator
 
 
-def flatten(nestediterable: Iterable, *, dontflatten = None) -> Generator:
+def flatten(nestediterable: Iterable, *, dontflatten: type | None = None) -> Generator:
     """
     Recursively flattens a nested iterable and returns all elements in order left to right.
 
     Args:
     ----
     nestediterable: The nested iterable to flatten
+
+    dontflatten: Optional type which will not be flattened (recommended: `str`)
 
     Yields:
     ------
@@ -27,6 +31,10 @@ def flatten(nestediterable: Iterable, *, dontflatten = None) -> Generator:
     [1, 2, 'a', 'b', 'c', 3, 4]
     ```
 
+    ```
+    >>> [x for x in flatten([1,2,"abc",[3,4]], dontflatten = str)]
+    [1, 2, 'abc', 3, 4]
+    ```
     """
     try:
         iter(nestediterable)
