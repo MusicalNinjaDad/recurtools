@@ -47,7 +47,7 @@ def test_dict_values():
 
 def test_dontflatten_str():
     nested = ["ab",3,("cd","e")]
-    assert list(flatten(nested, dontflatten=str)) == ["ab",3,"cd","e"]
+    assert list(flatten(nested)) == ["ab",3,"cd","e"]
 
 def test_flatten_str():
     nested = ["ab",3,("cd","e")]
