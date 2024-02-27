@@ -60,7 +60,7 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
 
 
 def starchain(
-    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = False,  # noqa: ANN401
+    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = True,  # noqa: ANN401
 ) -> Generator[Any]:
     """
     Generator: yields the contents of `args` one element at a time.
@@ -79,10 +79,24 @@ def starchain(
     `recursive`: whether to recurse into nested iterables (`True`) , or yield them as a single entits (`False`).
     Default: `True`
 
+    
+    Examples:
+    --------
+    ```pycon
+    >>> list(starchain([[1,2],[3,4]], 5))
+    [1, 2, 3, 4, 5]
+    ```
+    
     !!! Note:
     `preservestrings = None`, `recursive = False` will only flatten strings which are not part of another iterable.
 
-    e.g.: 'abc' -> 'a','b','c' but ['ab','cd'] -> 'ab','cd'
+    ```
+    >>> list(starchain("abcd", preserve = None, recursive = False))
+    ['a', 'b', 'c', 'd']
+
+    >>> list(starchain(["ab", "cd"], preserve = None, recursive = False))
+    ['ab', 'cd']
+    ```
     """
     args = [*args]
     for arg in args:
