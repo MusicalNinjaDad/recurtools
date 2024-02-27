@@ -1,11 +1,11 @@
 from .utils import (  # noqa: D104
-    starchain,
     countrecursive,
     flatten,
     indexrecursive,
     inrecursive,
     lenrecursive,
     nested,
+    starchain,
     sumrecursive,
 )
 
