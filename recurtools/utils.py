@@ -57,7 +57,7 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
                     yield from flatten(item, dontflatten=dontflatten)
 
 
-def chainanything(
+def starchain(
     *args: Any, dontflatten: type | Iterable[type] | None = stringlike, recursive: bool = False,  # noqa: ANN401
 ) -> Generator[Any]:
     """
