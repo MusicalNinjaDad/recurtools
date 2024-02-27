@@ -6,7 +6,7 @@ from typing import Any, Generator
 
 stringlike = (str, bytes)
 
-def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | None = stringlike) -> Generator:
+def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None = stringlike) -> Generator:
     """
     Recursively flattens a nested iterable and returns all elements in order left to right.
 
@@ -14,15 +14,15 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
     ----
     `nestediterable`: The nested iterable to flatten
 
-    `dontflatten`: Optional type which will not be flattened. Default: `(str, bytes)`.  
-    If you want to flatten strings then use `dontflatten=None`.
+    `preserve`: Optional type which will not be flattened. Default: `(str, bytes)`.  
+    If you want to flatten strings then use `preserve=None`.
 
     Yields:
     ------
     Each element from `nestediterable`.
 
     !!! Note "bytes"
-        `bytes` are flattened into individual `int` codes, unless `dontflatten` includes `bytes`.
+        `bytes` are flattened into individual `int` codes, unless `preserve` includes `bytes`.
         See [PEP467](https://peps.python.org/pep-0467/) for more background
 
     Examples:
@@ -33,7 +33,7 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
     ```
 
     ```
-    >>> [x for x in flatten([1,2,"abc",[3,4]], dontflatten = None)]
+    >>> [x for x in flatten([1,2,"abc",[3,4]], preserve = None)]
     [1, 2, 'a', 'b', 'c', 3, 4]
     ```
 
@@ -47,18 +47,18 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
     except TypeError:
         yield nestediterable
     else:
-        if dontflatten and isinstance(nestediterable, dontflatten):
+        if preserve and isinstance(nestediterable, preserve):
             yield nestediterable
         else:
             for item in nestediterable:
                 if item is nestediterable:  # catch e.g. a single char string
                     yield item
                 else:
-                    yield from flatten(item, dontflatten=dontflatten)
+                    yield from flatten(item, preserve=preserve)
 
 
 def starchain(
-    *args: Any, dontflatten: type | Iterable[type] | None = stringlike, recursive: bool = False,  # noqa: ANN401
+    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = False,  # noqa: ANN401
 ) -> Generator[Any]:
     """
     Generator: yields the contents of an iterable, or the given object if not a iterable, one at a time
@@ -76,10 +76,10 @@ def starchain(
         except TypeError:  # noqa: PERF203
             yield arg
         else:
-            if dontflatten and isinstance(arg, dontflatten):
+            if preserve and isinstance(arg, preserve):
                 yield arg
             elif recursive:
-                yield from flatten(arg, dontflatten=dontflatten)
+                yield from flatten(arg, preserve=preserve)
             else:
                 yield from arg
 
@@ -149,7 +149,7 @@ def countrecursive(collection, val):  # noqa: ANN001, ANN201
                 count_ += 1
         return count_
 
-    return _count(flatten(collection, dontflatten=None), val)
+    return _count(flatten(collection, preserve=None), val)
 
 
 def inrecursive(collection, val):  # noqa: ANN001, ANN201
