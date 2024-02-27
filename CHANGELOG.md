@@ -1,6 +1,6 @@
 # Changelog: recurtools
 
-- rename chainanything to starchain
+- **rename** `chainanything` to `starchain`, **default behaviour changed** to `recursive = True`
 - standardised on keywork argument `preserve`
 
 ## v0.4.0 - update to flatten (BREAKING)
