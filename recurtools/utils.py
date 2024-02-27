@@ -19,9 +19,6 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
     `preserve`: Optional type which will not be flattened. Default: `(str, bytes)`.  
     If you want to flatten strings then use `preserve=None`.
 
-    Yields:
-    ------
-    Each element from `nestediterable`.
 
     !!! Note "bytes"
         `bytes` are flattened into individual `int` codes, unless `preserve` includes `bytes`.
@@ -87,16 +84,16 @@ def starchain(
     [1, 2, 3, 4, 5]
     ```
     
-    !!! Note:
-    `preservestrings = None`, `recursive = False` will only flatten strings which are not part of another iterable.
+    !!! Note
+        `preservestrings = None`, `recursive = False` will only flatten strings which are not part of another iterable.
 
-    ```
-    >>> list(starchain("abcd", preserve = None, recursive = False))
-    ['a', 'b', 'c', 'd']
+        ```
+        >>> list(starchain("abcd", preserve = None, recursive = False))
+        ['a', 'b', 'c', 'd']
 
-    >>> list(starchain(["ab", "cd"], preserve = None, recursive = False))
-    ['ab', 'cd']
-    ```
+        >>> list(starchain(["ab", "cd"], preserve = None, recursive = False))
+        ['ab', 'cd']
+        ```
     """
     args = [*args]
     for arg in args:
