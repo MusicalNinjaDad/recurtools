@@ -14,6 +14,8 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
     ----
     `nestediterable`: The nested iterable to flatten
 
+    Keyword Args:
+    ------------
     `preserve`: Optional type which will not be flattened. Default: `(str, bytes)`.  
     If you want to flatten strings then use `preserve=None`.
 
@@ -61,14 +63,27 @@ def starchain(
     *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = False,  # noqa: ANN401
 ) -> Generator[Any]:
     """
-    Generator: yields the contents of an iterable, or the given object if not a iterable, one at a time
+    Generator: yields the contents of `args` one element at a time.
+    
+    Similar to itertools.chain but will accept non-iterable arguments and recurse into nested iterables.
 
-    preservestrings = False will lead to strings being yielded as individual characters. Default = True
-    recursive = True will recursively flatten container. Default = False
+    Args:
+    ----
+    `args`: one or more items to be chained.
 
-    Note: preservestrings = False, recursive = False will only flatten strings which are not part of another container.
+    Keyword Args:
+    ------------
+    `preserve`: iterable types to be preserved as complete entities. Default:  Default: `(str, bytes)`.  
+    If you want to yield individual characters from strings use `preserve = None`
+    
+    `recursive`: whether to recurse into nested iterables (`True`) , or yield them as a single entits (`False`).
+    Default: `True`
+
+    !!! Note:
+    `preservestrings = None`, `recursive = False` will only flatten strings which are not part of another iterable.
+
     e.g.: 'abc' -> 'a','b','c' but ['ab','cd'] -> 'ab','cd'
-    """  # noqa: D400, D415
+    """
     args = [*args]
     for arg in args:
         try:
