@@ -1,12 +1,12 @@
 from .utils import (  # noqa: D104
-    chainanything,
     countrecursive,
     flatten,
     indexrecursive,
     inrecursive,
     lenrecursive,
     nested,
+    starchain,
     sumrecursive,
 )
 
-__all__ = ["flatten", "lenrecursive", "sumrecursive", "countrecursive", "inrecursive", "indexrecursive", "chainanything", "nested"]  # noqa: E501
+__all__ = ["flatten", "lenrecursive", "sumrecursive", "countrecursive", "inrecursive", "indexrecursive", "starchain", "nested"]  # noqa: E501

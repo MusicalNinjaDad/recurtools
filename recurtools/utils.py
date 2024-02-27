@@ -1,12 +1,12 @@
 from __future__ import annotations  # noqa: D100
 
-from collections.abc import Collection, Container, Iterable, Sequence, Sized
+from collections.abc import Collection, Container, Iterable, Sized
 from contextlib import contextmanager
-from typing import Generator
+from typing import Any, Generator
 
 stringlike = (str, bytes)
 
-def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | None = stringlike) -> Generator:
+def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None = stringlike) -> Generator:
     """
     Recursively flattens a nested iterable and returns all elements in order left to right.
 
@@ -14,15 +14,14 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
     ----
     `nestediterable`: The nested iterable to flatten
 
-    `dontflatten`: Optional type which will not be flattened. Default: `(str, bytes)`.  
-    If you want to flatten strings then use `dontflatten=None`.
+    Keyword Args:
+    ------------
+    `preserve`: Optional type which will not be flattened. Default: `(str, bytes)`.  
+    If you want to flatten strings then use `preserve=None`.
 
-    Yields:
-    ------
-    Each element from `nestediterable`.
 
     !!! Note "bytes"
-        `bytes` are flattened into individual `int` codes, unless `dontflatten` includes `bytes`.
+        `bytes` are flattened into individual `int` codes, unless `preserve` includes `bytes`.
         See [PEP467](https://peps.python.org/pep-0467/) for more background
 
     Examples:
@@ -33,7 +32,7 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
     ```
 
     ```
-    >>> [x for x in flatten([1,2,"abc",[3,4]], dontflatten = None)]
+    >>> [x for x in flatten([1,2,"abc",[3,4]], preserve = None)]
     [1, 2, 'a', 'b', 'c', 3, 4]
     ```
 
@@ -47,35 +46,66 @@ def flatten(nestediterable: Iterable, *, dontflatten: type | Iterable[type] | No
     except TypeError:
         yield nestediterable
     else:
-        if dontflatten and isinstance(nestediterable, dontflatten):
+        if preserve and isinstance(nestediterable, preserve):
             yield nestediterable
         else:
             for item in nestediterable:
                 if item is nestediterable:  # catch e.g. a single char string
                     yield item
                 else:
-                    yield from flatten(item, dontflatten=dontflatten)
+                    yield from flatten(item, preserve=preserve)
 
 
-def chainanything(*args, preservestrings=True, recursive=False):  # noqa: ANN001, ANN002, ANN201
+def starchain(
+    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = True,  # noqa: ANN401
+) -> Generator[Any]:
     """
-    Generator: yields the contents of an iterable, or the given object if not a iterable, one at a time
+    Generator: yields the contents of `args` one element at a time.
+    
+    Similar to itertools.chain but will accept non-iterable arguments and recurse into nested iterables.
 
-    preservestrings = False will lead to strings being yielded as individual characters. Default = True
-    recursive = True will recursively flatten container. Default = False
+    Args:
+    ----
+    `args`: one or more items to be chained.
 
-    Note: preservestrings = False, recursive = False will only flatten strings which are not part of another container.
-    e.g.: 'abc' -> 'a','b','c' but ['ab','cd'] -> 'ab','cd'
-    """  # noqa: D400, D415
+    Keyword Args:
+    ------------
+    `preserve`: iterable types to be preserved as complete entities. Default:  Default: `(str, bytes)`.  
+    If you want to yield individual characters from strings use `preserve = None`
+    
+    `recursive`: whether to recurse into nested iterables (`True`) , or yield them as a single entits (`False`).
+    Default: `True`
+
+    
+    Examples:
+    --------
+    ```pycon
+    >>> list(starchain([[1,2],[3,4]], 5))
+    [1, 2, 3, 4, 5]
+    ```
+    
+    !!! Note
+        `preservestrings = None`, `recursive = False` will only flatten strings which are not part of another iterable.
+
+        ```
+        >>> list(starchain("abcd", preserve = None, recursive = False))
+        ['a', 'b', 'c', 'd']
+
+        >>> list(starchain(["ab", "cd"], preserve = None, recursive = False))
+        ['ab', 'cd']
+        ```
+    """
     args = [*args]
     for arg in args:
-        if not isinstance(arg, Sequence):
+        try:
+            iter(arg)
+        except TypeError:  # noqa: PERF203
             yield arg
-        else:  # noqa: PLR5501
-            if preservestrings and isinstance(arg, str):
+        else:
+            if preserve and isinstance(arg, preserve):
                 yield arg
             elif recursive:
-                yield from flatten(arg, dontflatten=None)
+                yield from flatten(arg, preserve=preserve)
             else:
                 yield from arg
 
@@ -145,7 +175,7 @@ def countrecursive(collection, val):  # noqa: ANN001, ANN201
                 count_ += 1
         return count_
 
-    return _count(flatten(collection, dontflatten=None), val)
+    return _count(flatten(collection, preserve=None), val)
 
 
 def inrecursive(collection, val):  # noqa: ANN001, ANN201
