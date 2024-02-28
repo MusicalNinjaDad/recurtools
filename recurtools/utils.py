@@ -1,6 +1,6 @@
 from __future__ import annotations  # noqa: D100
 
-from collections.abc import Collection, Container, Iterable, Sized
+from collections.abc import Iterable, Sized
 from contextlib import contextmanager
 from typing import Any, Generator
 
@@ -254,20 +254,3 @@ class Nonexistent:  # noqa: D101
 
     def __str__(self) -> str:  # noqa: D105
         return "Nonexistent"
-
-
-class nested(Collection):  # noqa: D101, N801
-    def __init__(self, nestedcontainer: Container) -> None:  # noqa: D107
-        self.nestedcontainer = nestedcontainer
-
-    def __contains__(self, __o: object) -> bool:  # noqa: D105
-        return inrecursive(self.nestedcontainer, __o)
-
-    def __len__(self):  # noqa: ANN204, D105
-        return lenrecursive(self.nestedcontainer)
-
-    def __iter__(self):  # noqa: ANN204, D105
-        return flatten(self.nestedcontainer)
-
-    def count(self, __o):  # noqa: ANN001, ANN201, D102
-        return countrecursive(self.nestedcontainer, __o)
