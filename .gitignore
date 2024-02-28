@@ -40,6 +40,10 @@ venv.bak/
 # mkdocs site cache - this breaks github language statistics
 site/
 
+# mkdocs serve nohup output
+docs/serve.err
+docs/serve.out
+
 # VSCode - User preferences belong in a workspace file
 *.code-workspace
 
