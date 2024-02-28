@@ -65,6 +65,7 @@ flake8-pytest-style.fixture-parentheses = false
 flake8-annotations.mypy-init-return = true
 pydocstyle.convention = "google"
 ignore = [
+    "D107", # Don't document `__init__` methods
     "D203", # We want D211 - no blank line before class docstring
     "D212", # We want D213 - Multiline docstrings start on second line
     "D401", # First line of docstring does not need to be in imperative mood

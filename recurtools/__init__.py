@@ -1,10 +1,12 @@
-from .utils import (  # noqa: D104
+# noqa: D104
+
+from .nested import nested
+from .utils import (
     countrecursive,
     flatten,
     indexrecursive,
     inrecursive,
     lenrecursive,
-    nested,
     starchain,
     sumrecursive,
 )
