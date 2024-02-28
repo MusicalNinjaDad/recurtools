@@ -14,3 +14,5 @@ Currently standard functionality is to traverse left-to-right as the collection 
     Handling of strings is not yet consistent. Sometimes they are separated into individual characters, and sometimes preserved as whole strings. This will be standardised by the v1.0.0 release and any further changes will be considered "breaking"
 
 ::: recurtools
+
+::: recurtools.nested
