@@ -41,8 +41,8 @@ venv.bak/
 site/
 
 # mkdocs serve nohup output
-docs/serve.err
-docs/serve.out
+serve.err
+serve.out
 
 # VSCode - User preferences belong in a workspace file
 *.code-workspace
