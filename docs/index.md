@@ -1,6 +1,6 @@
 # Welcome to recurtools
 
-So many questions on StackExchange take the form "How do I ... with a nested list?".
+So many questions on StackExchange take the form "How do I ... with a nested ...?".
 Here are some tools and helpers I developed to solve those kinds of problems
 
 !!! danger "unstable interface"
@@ -13,6 +13,6 @@ Currently standard functionality is to traverse left-to-right as the collection 
 
     Handling of strings is not yet consistent. Sometimes they are separated into individual characters, and sometimes preserved as whole strings. This will be standardised by the v1.0.0 release and any further changes will be considered "breaking"
 
-::: recurtools
-
 ::: recurtools.nested
+
+::: recurtools
