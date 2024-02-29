@@ -11,13 +11,11 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
     Recursively flattens a nested iterable and returns all elements in order left to right.
 
     Args:
-    ----
-    `nestediterable`: The nested iterable to flatten
+        `nestediterable`: The nested iterable to flatten
 
     Keyword Args:
-    ------------
-    `preserve`: Optional type which will not be flattened. Default: `(str, bytes)`.  
-    If you want to flatten strings then use `preserve=None`.
+        `preserve`: Optional type which will not be flattened. Default: `(str, bytes)`.  
+        If you want to flatten strings then use `preserve=None`.
 
 
     !!! Note "bytes"
@@ -25,21 +23,20 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
         See [PEP467](https://peps.python.org/pep-0467/) for more background
 
     Examples:
-    --------
-    ```
-    >>> [x for x in flatten([1,2,[3,4,[5],6],7,[8,9]])]
-    [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    ```
+        ```
+        >>> [x for x in flatten([1,2,[3,4,[5],6],7,[8,9]])]
+        [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        ```
 
-    ```
-    >>> [x for x in flatten([1,2,"abc",[3,4]], preserve = None)]
-    [1, 2, 'a', 'b', 'c', 3, 4]
-    ```
+        ```
+        >>> [x for x in flatten([1,2,"abc",[3,4]], preserve = None)]
+        [1, 2, 'a', 'b', 'c', 3, 4]
+        ```
 
-    ```
-    >>> [x for x in flatten([1,2,"abc",[3,4]])]
-    [1, 2, 'abc', 3, 4]
-    ```
+        ```
+        >>> [x for x in flatten([1,2,"abc",[3,4]])]
+        [1, 2, 'abc', 3, 4]
+        ```
     """
     try:
         iter(nestediterable)
