@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from contextlib import contextmanager, suppress
+from contextlib import contextmanager
 from typing import Any, Generator, Iterable
 
 stringlike = (str, bytes)
@@ -127,13 +127,6 @@ def sumrecursive(seq):  # noqa: ANN001, ANN201
 
     return _sum(flatten(seq))
 
-class NotFoundError(LookupError):  # noqa: D101
-    pass
-
-
-class NoIndexError(LookupError):  # noqa: D101
-    pass
-
 
 @contextmanager
 def ignoreException(ExceptionType):  # noqa: ANN001, ANN201, D103, N802, N803
@@ -149,19 +142,6 @@ def swapException(OriginalException, NewException):  # noqa: ANN001, ANN201, D10
         yield
     except OriginalException:
         raise NewException  # noqa: B904
-
-
-def indexrecursive(seq, val):  # noqa: ANN001, ANN201, D103
-    try:
-        return (seq.index(val),)
-    except AttributeError as a: # seq does not support index()
-        raise NoIndexError from a
-    except ValueError as v: # seq does support index() but val not found
-        for i, s in enumerate(seq):
-            if s is not seq:  # single char strings etc.
-                with suppress(NotFoundError, NoIndexError):
-                    return tuple(flatten((i, indexrecursive(s, val))))
-        raise NotFoundError from v
 
 
 class Nonexistent:  # noqa: D101
