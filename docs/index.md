@@ -15,4 +15,4 @@ Currently standard functionality is to traverse left-to-right as the collection 
 
 ::: recurtools.nested
 
-::: recurtools
+::: recurtools.utils

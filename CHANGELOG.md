@@ -1,5 +1,6 @@
 # Changelog: recurtools
 
+- removed `indexrecursive()` function in preference for `nested.idnex()`.
 - removed `countrecursive()` function in preference for `nested.count()`.
 - removed `inrecursive()` function in preference for `in nested()`.
 - removed `lenrecursive()` function in preference for `len(nested())`. `countcontainers` not implemented in new version.
