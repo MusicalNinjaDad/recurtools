@@ -30,3 +30,6 @@ def test_in_noniterablecontainer():
     with pytest.raises(TypeError):
         _ = [x for x in input]  # noqa: C416
     assert 3 in nested(input)
+
+    nestednoniterables = nested([[1,input],2])
+    assert 3 in nestednoniterables
