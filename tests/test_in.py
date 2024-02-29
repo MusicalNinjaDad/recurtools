@@ -1,21 +1,23 @@
 
 from collections.abc import Container
 
-from recurtools import inrecursive
+import pytest
+
+from recurtools import nested
 
 # https://stackoverflow.com/questions/72321903/deep-list-count-count-lists-within-lists
 
 def test_in_ints():
-    assert inrecursive([1, 2, [3, 2]],3) == True  # noqa: E712
+    assert 3 in nested([1, 2, [3, 2]])
 
 def test_in_mixed():
-    assert inrecursive([1,2,"bed",[7,"bob"]], "o") == True  # noqa: E712
+    assert "o" in nested([1,2,"bed",[7,"bob"]])
 
 def test_in_int():
-    assert inrecursive(6,6) == True  # noqa: E712
+    assert 6 in nested(6)
 
 def test_in_mixed_notfound():
-    assert inrecursive([1,2,"bed",[7,"bob"]], 5) == False  # noqa: E712
+    assert 5 not in nested([1,2,"bed",[7,"bob"]])
 
 def test_in_noniterablecontainer():
     class noniterablelist(Container):  # noqa: N801
@@ -25,4 +27,9 @@ def test_in_noniterablecontainer():
             return __x in self.contents
 
     input = noniterablelist([1,2,3,4])  # noqa: A001
-    assert inrecursive(input, 3) == True  # noqa: E712
+    with pytest.raises(TypeError):
+        _ = [x for x in input]  # noqa: C416
+    assert 3 in nested(input)
+
+    nestednoniterables = nested([[1,input],2])
+    assert 3 in nestednoniterables

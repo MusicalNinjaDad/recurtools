@@ -58,7 +58,7 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
 
 
 def starchain(
-    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = True,  # noqa: ANN401
+    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = True,
 ) -> Generator[Any]:
     """
     Generator: yields the contents of `args` one element at a time.
@@ -143,31 +143,6 @@ def countrecursive(collection, val):  # noqa: ANN001, ANN201
 
     return _count(flatten(collection, preserve=None), val)
 
-
-def inrecursive(collection, val):  # noqa: ANN001, ANN201
-    """
-    Searches (nested) collection recursively for val. Returns True if val found, False if val not found.
-    If collection is not iterable tests collection == val . E.g. inrecursive(6,6) == True
-    """  # noqa: D205, D400, D415
-
-    def _in(collection, val):  # noqa: ANN001
-        found = False
-        for x in collection:
-            found = x == val
-            if found:
-                break
-            else:  # could be a non-iterable container returned by flatten  # noqa: RET508
-                try:  # noqa: SIM105
-                    found = val in x
-                except TypeError:
-                    ...
-                if found:
-                    break
-        return found
-
-    return _in(flatten(collection), val)
-
-
 class NotFoundError(LookupError):  # noqa: D101
     pass
 
@@ -215,8 +190,8 @@ class Nonexistent:  # noqa: D101
             cls.instance = super().__new__(cls)
         return cls.instance
 
-    def __repr__(self) -> str:  # noqa: D105
+    def __repr__(self) -> str:
         return "<Nonexistent>"
 
-    def __str__(self) -> str:  # noqa: D105
+    def __str__(self) -> str:
         return "Nonexistent"

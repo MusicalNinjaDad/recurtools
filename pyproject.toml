@@ -65,13 +65,16 @@ flake8-pytest-style.fixture-parentheses = false
 flake8-annotations.mypy-init-return = true
 pydocstyle.convention = "google"
 ignore = [
+    "D105", # Document magic methods in main docstring, not in own docstring
     "D107", # Don't document `__init__` methods
     "D203", # We want D211 - no blank line before class docstring
     "D212", # We want D213 - Multiline docstrings start on second line
     "D401", # First line of docstring does not need to be in imperative mood
     "D417", # Undocumented arguments - need to switch off if wrapping args in `arg`
+    "E701", # One-line ifs are not great, one-liners with suppression are worse
     "ANN101", # Type annotation for `self`
     "ANN202", # Return type annotation for private functions
+    "ANN401", # Using Any often enough that supressing individually is pointless
     "W291", # Double space at EOL is linebreak in md-docstring
     "W293", # Whitespace only lines are OK for us
     ]
@@ -97,3 +100,8 @@ extend-select = [
     "PLR2004", # Magic number comparisons are OK in tests
     "D1", # Don't REQUIRE docstrings for tests - but they are nice
     ]
+
+"**/__init__.py" = [
+    "D104", # Don't require module docstring in __init__.py
+    "F401", # Unused imports are fine: using __init__.py to expose them with implicit __ALL__ 
+]
