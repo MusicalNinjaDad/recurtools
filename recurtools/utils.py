@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from typing import Any, Generator, Iterable
 
 stringlike = (str, bytes)
@@ -152,18 +152,16 @@ def swapException(OriginalException, NewException):  # noqa: ANN001, ANN201, D10
 
 
 def indexrecursive(seq, val):  # noqa: ANN001, ANN201, D103
-    def _lookinchildren(seq, val):  # noqa: ANN001
+    try:
+        return (seq.index(val),)
+    except AttributeError as a: # seq does not support index()
+        raise NoIndexError from a
+    except ValueError: # seq does support index() but val not found
         for i, s in enumerate(seq):
             if s is not seq:  # single char strings etc.
-                with ignoreException(NotFoundError), ignoreException(NoIndexError):
+                with suppress(NotFoundError, NoIndexError):
                     return tuple(flatten((i, indexrecursive(s, val))))
-        raise NotFoundError
-
-    try:
-        with swapException(AttributeError, NoIndexError):
-            return (seq.index(val),)
-    except ValueError:  # not found but supports index, aasume also iterable
-        return _lookinchildren(seq, val)
+        raise NotFoundError  # noqa: B904
 
 
 class Nonexistent:  # noqa: D101
