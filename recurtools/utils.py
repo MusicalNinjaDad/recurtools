@@ -58,7 +58,7 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
 
 
 def starchain(
-    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = True,  # noqa: ANN401
+    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = True,
 ) -> Generator[Any]:
     """
     Generator: yields the contents of `args` one element at a time.

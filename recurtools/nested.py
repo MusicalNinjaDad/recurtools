@@ -1,6 +1,6 @@
 # noqa: D100
 from contextlib import suppress
-from typing import Any, Collection, Container
+from typing import Any, Collection, Container, Iterable
 
 from recurtools.utils import countrecursive, flatten
 
@@ -44,12 +44,13 @@ class nested(Collection):  # noqa: N801
     def __init__(self, nestedcontainer: Container) -> None:
         self.nestedcontainer = nestedcontainer
 
-    def __contains__(self, __other: Any) -> bool:  # noqa: ANN401
-        def _in(collection, val):  # noqa: ANN001
-            for x in collection:
-                if x == val: return True  # noqa: E701
+    def __contains__(self, __other: Any) -> bool:
+        
+        def _in(collection: Iterable, val: Any):
+            for item in collection: # by using flatten in the call to _in, we are guranteed an initial iterable
+                if item == val: return True  # noqa: E701
                 with suppress(TypeError): # x not guaranteed to support __contains__
-                    if val in x: return True  # noqa: E701
+                    if val in item: return True  # noqa: E701
             return False
 
         return _in(flatten(self.nestedcontainer), __other)
