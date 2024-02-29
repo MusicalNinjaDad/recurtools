@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from contextlib import contextmanager
 from typing import Generator, Iterable
 
 stringlike = (str, bytes)
@@ -55,34 +54,3 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
                     yield item
                 else:
                     yield from flatten(item, preserve=preserve)
-
-
-@contextmanager
-def ignoreException(ExceptionType):  # noqa: ANN001, ANN201, D103, N802, N803
-    try:  # noqa: SIM105
-        yield
-    except ExceptionType:
-        pass
-
-
-@contextmanager
-def swapException(OriginalException, NewException):  # noqa: ANN001, ANN201, D103, N802, N803
-    try:
-        yield
-    except OriginalException:
-        raise NewException  # noqa: B904
-
-
-class Nonexistent:  # noqa: D101
-    instance = None
-
-    def __new__(cls):  # noqa: ANN204, D102
-        if cls.instance is None:
-            cls.instance = super().__new__(cls)
-        return cls.instance
-
-    def __repr__(self) -> str:
-        return "<Nonexistent>"
-
-    def __str__(self) -> str:
-        return "Nonexistent"
