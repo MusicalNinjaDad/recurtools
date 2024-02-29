@@ -1,7 +1,7 @@
 # noqa: D100
 from typing import Any, Collection, Container
 
-from recurtools.utils import countrecursive, flatten, inrecursive
+from recurtools.utils import countrecursive, flatten
 
 
 class nested(Collection):  # noqa: N801
@@ -44,7 +44,22 @@ class nested(Collection):  # noqa: N801
         self.nestedcontainer = nestedcontainer
 
     def __contains__(self, __other: Any) -> bool:  # noqa: ANN401
-        return inrecursive(self.nestedcontainer, __other)
+        def _in(collection, val):  # noqa: ANN001
+            found = False
+            for x in collection:
+                found = x == val
+                if found:
+                    break
+                else:  # could be a non-iterable container returned by flatten  # noqa: RET508
+                    try:  # noqa: SIM105
+                        found = val in x
+                    except TypeError:
+                        ...
+                    if found:
+                        break
+            return found
+
+        return _in(flatten(self.nestedcontainer), __other)
 
     def __len__(self):  # noqa: ANN204
         return len(list(flatten(self.nestedcontainer)))
