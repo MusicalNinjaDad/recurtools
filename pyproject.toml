@@ -66,7 +66,6 @@ flake8-annotations.mypy-init-return = true
 pydocstyle.convention = "numpy"
 ignore = [
     "D105", # Document magic methods in main docstring, not in own docstring
-    "D107", # Don't document `__init__` methods
     "D203", # We want D211 - no blank line before class docstring
     "D204", # No blank line after class docstring
     "D212", # We want D213 - Multiline docstrings start on second line

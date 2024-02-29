@@ -26,7 +26,7 @@ from recurtools import flatten
 
 ``` mermaid
 classDiagram
-    direction LR
+    direction RL
     nested <|.. Collection: implements
     class nested{
         contents

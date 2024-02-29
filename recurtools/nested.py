@@ -42,6 +42,7 @@ class nested(Collection):  # noqa: N801
         ```
     """
     def __init__(self, contents: Container) -> None:
+        """Initialise a nested container."""
         self.contents = contents
 
 
