@@ -1,6 +1,6 @@
 # recurtools
 
-::: recurtools
+A simple library to support working with recursively nested objects.
 
 Primarily built around the [nested class](#nested) which offers `in`, `len`, `index()` and `count()` functionality.  
 Additionally, a [flatten() function](#flatten) is provided via `recurtools.utils`.
@@ -12,7 +12,7 @@ Additionally, a [flatten() function](#flatten) is provided via `recurtools.utils
     
     A future version will aim to provide a similar interface to the `preserve` keyword argument in flatten.
 
-## nested
+## nested class
 
 ```
 from recurtools import nested
@@ -35,7 +35,7 @@ classDiagram
 
 ::: recurtools.nested.nested
 
-## flatten
+## flatten utility function
 
 ```
 from recurtools import flatten

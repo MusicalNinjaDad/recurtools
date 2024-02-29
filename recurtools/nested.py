@@ -12,36 +12,34 @@ class nested(Collection):  # noqa: N801
     A `Collection` which supports recursive versions of `in`, `len` and offers a recursive `count` and `index`.
 
     Attributes:
-    ----------
-    contents: the original nested content
+        contents: the original nested content
 
     Examples:
-    --------
-    ```
-    >>> numberlists = [[1, 2], [3, 4], [5, 6], [[7, 8], 9]]
-    >>> nest = nested(numberlists)
-    
-    >>> nest.contents
-    [[1, 2], [3, 4], [5, 6], [[7, 8], 9]]
+        ```
+        >>> numberlists = [[1, 2], [3, 4], [5, 6], [[7, 8], 9]]
+        >>> nest = nested(numberlists)
+        
+        >>> nest.contents
+        [[1, 2], [3, 4], [5, 6], [[7, 8], 9]]
 
-    >>> 5 in nest
-    True
+        >>> 5 in nest
+        True
 
-    >>> 10 in nest
-    False
+        >>> 10 in nest
+        False
 
-    >>> len(nest)
-    9
+        >>> len(nest)
+        9
 
-    >>> [x for x in nest]
-    [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        >>> [x for x in nest]
+        [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    >>> list(nest)
-    [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        >>> list(nest)
+        [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    >>> nest.count(5)
-    1
-    ```
+        >>> nest.count(5)
+        1
+        ```
     """
     def __init__(self, contents: Container) -> None:
         self.contents = contents
@@ -70,20 +68,19 @@ class nested(Collection):  # noqa: N801
         Return the number of times x occurs within the nested structure.
 
         Examples:
-        --------
-        ```
-        >>> nest = nested([1, 2, [3, 2]])
-        >>> nest.count(2)
-        2
-        >>> nest.count(4)
-        0
-        ```
+            ```
+            >>> nest = nested([1, 2, [3, 2]])
+            >>> nest.count(2)
+            2
+            >>> nest.count(4)
+            0
+            ```
 
-        ```
-        >>> nest = nested(["ab", "b", ["c", "db", ["e","bob"]]])
-        >>> nest.count("b")
-        5
-        ```
+            ```
+            >>> nest = nested(["ab", "b", ["c", "db", ["e","bob"]]])
+            >>> nest.count("b")
+            5
+            ```
         """
         return list(flatten(self.contents, preserve=None)).count(x)
 
@@ -95,24 +92,23 @@ class nested(Collection):  # noqa: N801
         Raises a ValueError if there is no such item.
 
         Examples:
-        --------
-        ```
-        >>> nest = nested([1, 2, [3, 2]])
-        >>> nest.index(2)
-        (1,)
-        >>> nest.index(3)
-        (2, 0)
-        >>> nest.index(4)
-        Traceback (most recent call last):
-        ...
-        ValueError: 4 is not in nest
-        ```
+            ```
+            >>> nest = nested([1, 2, [3, 2]])
+            >>> nest.index(2)
+            (1,)
+            >>> nest.index(3)
+            (2, 0)
+            >>> nest.index(4)
+            Traceback (most recent call last):
+            ...
+            ValueError: 4 is not in nest
+            ```
 
-        ```
-        >>> nest = nested(["Foo",[1,"Bar"]])
-        >>> nest.index("a")
-        (1, 1, 1)
-        ```
+            ```
+            >>> nest = nested(["Foo",[1,"Bar"]])
+            >>> nest.index("a")
+            (1, 1, 1)
+            ```
         """
 
         class NotFoundError(LookupError):
