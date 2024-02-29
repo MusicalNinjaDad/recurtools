@@ -1,6 +1,8 @@
 
 from collections.abc import Container
 
+import pytest
+
 from recurtools import nested
 
 # https://stackoverflow.com/questions/72321903/deep-list-count-count-lists-within-lists
@@ -25,4 +27,6 @@ def test_in_noniterablecontainer():
             return __x in self.contents
 
     input = noniterablelist([1,2,3,4])  # noqa: A001
+    with pytest.raises(TypeError):
+        _ = [x for x in input]  # noqa: C416
     assert 3 in nested(input)
