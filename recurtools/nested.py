@@ -93,6 +93,26 @@ class nested(Collection):  # noqa: N801
         
         Index is of the form a tuple with index at each level of the hierarchy.
         Raises a ValueError if there is no such item.
+
+        Examples:
+        --------
+        ```
+        >>> nest = nested([1, 2, [3, 2]])
+        >>> nest.index(2)
+        (1,)
+        >>> nest.index(3)
+        (2, 0)
+        >>> nest.index(4)
+        Traceback (most recent call last):
+        ...
+        ValueError: 4 is not in nest
+        ```
+
+        ```
+        >>> nest = nested(["Foo",[1,"Bar"]])
+        >>> nest.index("a")
+        (1, 1, 1)
+        ```
         """
 
         class NotFoundError(LookupError):
