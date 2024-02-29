@@ -1,10 +1,10 @@
 # Changelog: recurtools
 
-- removed `indexrecursive()` function in preference for `nested.idnex()`.
+- removed `chainanything()` - some of the functionality may later be incorporated into `in nested.something()`
+- removed `indexrecursive()` function in preference for `nested.index()`.
 - removed `countrecursive()` function in preference for `nested.count()`.
 - removed `inrecursive()` function in preference for `in nested()`.
 - removed `lenrecursive()` function in preference for `len(nested())`. `countcontainers` not implemented in new version.
-- **rename** `chainanything` to `starchain`, **default behaviour changed** to `recursive = True`
 - standardised on keywork argument `preserve`
 
 ## v0.4.0 - update to flatten (BREAKING)

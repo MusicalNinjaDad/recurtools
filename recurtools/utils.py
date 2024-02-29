@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Any, Generator, Iterable
+from typing import Generator, Iterable
 
 stringlike = (str, bytes)
 
@@ -55,60 +55,6 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
                     yield item
                 else:
                     yield from flatten(item, preserve=preserve)
-
-
-def starchain(
-    *args: Any, preserve: type | Iterable[type] | None = stringlike, recursive: bool = True,
-) -> Generator[Any]:
-    """
-    Generator: yields the contents of `args` one element at a time.
-    
-    Similar to itertools.chain but will accept non-iterable arguments and recurse into nested iterables.
-
-    Args:
-    ----
-    `args`: one or more items to be chained.
-
-    Keyword Args:
-    ------------
-    `preserve`: iterable types to be preserved as complete entities. Default:  Default: `(str, bytes)`.  
-    If you want to yield individual characters from strings use `preserve = None`
-    
-    `recursive`: whether to recurse into nested iterables (`True`) , or yield them as a single entits (`False`).
-    Default: `True`
-
-    
-    Examples:
-    --------
-    ```pycon
-    >>> list(starchain([[1,2],[3,4]], 5))
-    [1, 2, 3, 4, 5]
-    ```
-    
-    !!! Note
-        `preservestrings = None`, `recursive = False` will only flatten strings which are not part of another iterable.
-
-        ```
-        >>> list(starchain("abcd", preserve = None, recursive = False))
-        ['a', 'b', 'c', 'd']
-
-        >>> list(starchain(["ab", "cd"], preserve = None, recursive = False))
-        ['ab', 'cd']
-        ```
-    """
-    args = [*args]
-    for arg in args:
-        try:
-            iter(arg)
-        except TypeError:  # noqa: PERF203
-            yield arg
-        else:
-            if preserve and isinstance(arg, preserve):
-                yield arg
-            elif recursive:
-                yield from flatten(arg, preserve=preserve)
-            else:
-                yield from arg
 
 def sumrecursive(seq):  # noqa: ANN001, ANN201
     """
