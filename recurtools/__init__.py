@@ -5,9 +5,8 @@ from .utils import (
     countrecursive,
     flatten,
     indexrecursive,
-    inrecursive,
     starchain,
     sumrecursive,
 )
 
-__all__ = ["flatten", "lenrecursive", "sumrecursive", "countrecursive", "inrecursive", "indexrecursive", "starchain", "nested"]  # noqa: E501
+__all__ = ["flatten", "sumrecursive", "countrecursive", "indexrecursive", "starchain", "nested"]

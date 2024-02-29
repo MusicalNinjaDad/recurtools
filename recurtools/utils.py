@@ -143,31 +143,6 @@ def countrecursive(collection, val):  # noqa: ANN001, ANN201
 
     return _count(flatten(collection, preserve=None), val)
 
-
-def inrecursive(collection, val):  # noqa: ANN001, ANN201
-    """
-    Searches (nested) collection recursively for val. Returns True if val found, False if val not found.
-    If collection is not iterable tests collection == val . E.g. inrecursive(6,6) == True
-    """  # noqa: D205, D400, D415
-
-    def _in(collection, val):  # noqa: ANN001
-        found = False
-        for x in collection:
-            found = x == val
-            if found:
-                break
-            else:  # could be a non-iterable container returned by flatten  # noqa: RET508
-                try:  # noqa: SIM105
-                    found = val in x
-                except TypeError:
-                    ...
-                if found:
-                    break
-        return found
-
-    return _in(flatten(collection), val)
-
-
 class NotFoundError(LookupError):  # noqa: D101
     pass
 
