@@ -1,4 +1,5 @@
 # noqa: D100
+from contextlib import suppress
 from typing import Any, Collection, Container
 
 from recurtools.utils import countrecursive, flatten
@@ -50,11 +51,8 @@ class nested(Collection):  # noqa: N801
                 found = x == val
                 if found:
                     break
-                else:  # could be a non-iterable container returned by flatten  # noqa: RET508
-                    try:  # noqa: SIM105
-                        found = val in x
-                    except TypeError:
-                        ...
+                with suppress(TypeError): # could be a non-iterable container returned by flatten
+                    found = val in x
                     if found:
                         break
             return found
