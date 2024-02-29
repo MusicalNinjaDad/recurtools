@@ -215,8 +215,8 @@ class Nonexistent:  # noqa: D101
             cls.instance = super().__new__(cls)
         return cls.instance
 
-    def __repr__(self) -> str:  # noqa: D105
+    def __repr__(self) -> str:
         return "<Nonexistent>"
 
-    def __str__(self) -> str:  # noqa: D105
+    def __str__(self) -> str:
         return "Nonexistent"
