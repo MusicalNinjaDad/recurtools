@@ -156,12 +156,12 @@ def indexrecursive(seq, val):  # noqa: ANN001, ANN201, D103
         return (seq.index(val),)
     except AttributeError as a: # seq does not support index()
         raise NoIndexError from a
-    except ValueError: # seq does support index() but val not found
+    except ValueError as v: # seq does support index() but val not found
         for i, s in enumerate(seq):
             if s is not seq:  # single char strings etc.
                 with suppress(NotFoundError, NoIndexError):
                     return tuple(flatten((i, indexrecursive(s, val))))
-        raise NotFoundError  # noqa: B904
+        raise NotFoundError from v
 
 
 class Nonexistent:  # noqa: D101
