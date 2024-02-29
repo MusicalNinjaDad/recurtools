@@ -1,8 +1,10 @@
 # noqa: D100
+from __future__ import annotations
+
 from contextlib import suppress
 from typing import Any, Collection, Container, Iterable
 
-from recurtools.utils import flatten
+from recurtools.utils import flatten, indexrecursive
 
 
 class nested(Collection):  # noqa: N801
@@ -84,3 +86,12 @@ class nested(Collection):  # noqa: N801
         ```
         """
         return list(flatten(self.nestedcontainer, preserve=None)).count(x)
+
+    def index(self, x: Any) -> tuple[int]:
+        """
+        Return zero-based index in the nested structure of the first item whose value is equal to x. 
+        
+        Index is of the form a tuple with index at each level of the hierarchy.
+        Raises a ValueError if there is no such item.
+        """
+        return indexrecursive(self.nestedcontainer, x)
