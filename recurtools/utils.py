@@ -11,11 +11,11 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
     Recursively flattens a nested iterable and returns all elements in order left to right.
 
     Args:
-        `nestediterable`: The nested iterable to flatten
+        nestediterable (Iterable): The nested iterable to flatten
 
     Keyword Args:
-        `preserve`: Optional type which will not be flattened. Default: `(str, bytes)`.  
-        If you want to flatten strings then use `preserve=None`.
+        preserve (type | Iterable[type]): Optional type(s) which will not be flattened. Default: `(str, bytes)`.  
+          If you want to flatten strings then use `preserve=None`.
 
 
     !!! Note "bytes"

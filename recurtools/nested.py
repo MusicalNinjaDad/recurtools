@@ -12,7 +12,7 @@ class nested(Collection):  # noqa: N801
     A `Collection` which supports recursive versions of `in`, `len` and offers a recursive `count` and `index`.
 
     Attributes:
-        contents: the original nested content
+        contents (Any): the original nested content
 
     Examples:
         ```
