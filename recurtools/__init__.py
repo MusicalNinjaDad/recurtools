@@ -6,7 +6,6 @@ from .utils import (
     flatten,
     indexrecursive,
     inrecursive,
-    lenrecursive,
     starchain,
     sumrecursive,
 )
