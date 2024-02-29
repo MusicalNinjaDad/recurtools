@@ -12,16 +12,22 @@ Additionally, a [flatten() function](#flatten) is provided via `recurtools.utils
     
     A future version will aim to provide a similar interface to the `preserve` keyword argument in flatten.
 
-## nested class
+## Usage
 
 ```
 from recurtools import nested
 ```
 
+```
+from recurtools import flatten
+```
+
+## Class Diagram
+
 ``` mermaid
 classDiagram
     direction LR
-    nested <|-- Collection: implements
+    nested <|.. Collection: implements
     class nested{
         contents
         __contains__()
@@ -33,12 +39,8 @@ classDiagram
     class Collection["collections.abc.Collection"]
 ```
 
+
+
 ::: recurtools.nested.nested
-
-## flatten utility function
-
-```
-from recurtools import flatten
-```
 
 ::: recurtools.utils.flatten
