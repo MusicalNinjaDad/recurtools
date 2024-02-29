@@ -9,11 +9,11 @@ from recurtools.utils import flatten
 
 class nested(Collection):  # noqa: N801
     """
-    A `Collection` which supports recursive versions of `in`, `len` and offers a recursive `count`.
+    A `Collection` which supports recursive versions of `in`, `len` and offers a recursive `count` and `index`.
 
     Attributes:
     ----------
-    `nestediterable`: the original nested content
+    contents: the original nested content
 
     Examples:
     --------
@@ -21,7 +21,7 @@ class nested(Collection):  # noqa: N801
     >>> numberlists = [[1, 2], [3, 4], [5, 6], [[7, 8], 9]]
     >>> nest = nested(numberlists)
     
-    >>> nest.nestedcontainer
+    >>> nest.contents
     [[1, 2], [3, 4], [5, 6], [[7, 8], 9]]
 
     >>> 5 in nest
@@ -43,8 +43,8 @@ class nested(Collection):  # noqa: N801
     1
     ```
     """
-    def __init__(self, nestedcontainer: Container) -> None:
-        self.nestedcontainer = nestedcontainer
+    def __init__(self, contents: Container) -> None:
+        self.contents = contents
 
 
     def __contains__(self, __other: Any) -> bool:
@@ -56,14 +56,14 @@ class nested(Collection):  # noqa: N801
                     if val in item: return True
             return False
 
-        return _in(flatten(self.nestedcontainer), __other)
+        return _in(flatten(self.contents), __other)
 
 
     def __len__(self):  # noqa: ANN204
-        return len(list(flatten(self.nestedcontainer)))
+        return len(list(flatten(self.contents)))
 
     def __iter__(self):  # noqa: ANN204
-        return flatten(self.nestedcontainer)
+        return flatten(self.contents)
 
     def count(self, x: Any) -> int:
         """
@@ -85,7 +85,7 @@ class nested(Collection):  # noqa: N801
         5
         ```
         """
-        return list(flatten(self.nestedcontainer, preserve=None)).count(x)
+        return list(flatten(self.contents, preserve=None)).count(x)
 
     def index(self, x: Any) -> tuple[int]:
         """
@@ -132,6 +132,6 @@ class nested(Collection):  # noqa: N801
                             return tuple(flatten((i, _indexrecursive(s, val))))
                 raise NotFoundError from v
         try:
-            return _indexrecursive(self.nestedcontainer, x)
+            return _indexrecursive(self.contents, x)
         except NotFoundError:
             raise ValueError (f"{x} is not in nest") from None  # noqa: EM102, TRY003

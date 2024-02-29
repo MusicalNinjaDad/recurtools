@@ -18,6 +18,21 @@ Additionally, a [flatten() function](#flatten) is provided via `recurtools.utils
 from recurtools import nested
 ```
 
+``` mermaid
+classDiagram
+    direction LR
+    nested <|-- Collection: implements
+    class nested{
+        contents
+        __contains__()
+        __iter__()
+        __len__()
+        count()
+        index()
+    }
+    class Collection["collections.abc.Collection"]
+```
+
 ::: recurtools.nested.nested
 
 ## flatten
