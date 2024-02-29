@@ -1,18 +1,29 @@
-# Welcome to recurtools
+# recurtools
 
-So many questions on StackExchange take the form "How do I ... with a nested ...?".
-Here are some tools and helpers I developed to solve those kinds of problems
+::: recurtools
 
-!!! danger "unstable interface"
+Primarily built around the [nested class](#nested) which offers `in`, `len`, `index()` and `count()` functionality.  
+Additionally, a [flatten() function](#flatten) is provided via `recurtools.utils`.
 
-    This is a 0.x.x version because I am not yet happy with the function naming. Expect the API to change.
+!!! Tip "A note on strings in nested objects"
 
-Currently standard functionality is to traverse left-to-right as the collection would be output by `print()`
+    When iterating through a nested object, string-like elements `(str, bytes)` will be returned in their original blocks, not as individual characters.  
+    When calculating `len`, `index`, `count` and `__contains__`; individual characters are considered.
+    
+    A future version will aim to provide a similar interface to the `preserve` keyword argument in flatten.
 
-!!! warning "A note on strings"
+## nested
 
-    Handling of strings is not yet consistent. Sometimes they are separated into individual characters, and sometimes preserved as whole strings. This will be standardised by the v1.0.0 release and any further changes will be considered "breaking"
+```
+from recurtools import nested
+```
 
-::: recurtools.nested
+::: recurtools.nested.nested
 
-::: recurtools.utils
+## flatten
+
+```
+from recurtools import flatten
+```
+
+::: recurtools.utils.flatten
