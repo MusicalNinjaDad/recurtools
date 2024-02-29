@@ -52,18 +52,12 @@ assert nest2.count(2) == 3
 
 ### lenrecursive, sumrecursive, countrecursive, inrecursive
 
-Recursive versions of `len`, `sum`, `count`, `in` and `index`.
+Recursive versions of `sum`, `count`, `in` and `index`.
 
 Generally these will return a 0 or `None` value rather than raising an `TypeError` or `ValueError` as their nonrecursive brethren do.
 `indexrecursive` is an exception and will raise a specific `NotFoundError`.
 
 They can also cope with situations where some elements in the nested collection are summable / have a length etc. and others do not.
-
-```python
-from recurtools import lenrecursive
-assert lenrecursive([1, 2, [3, 4]]) == 4
-assert lenrecursive([1, 2, [3, 4]], countcontainers=True) == 5
-```
 
 ```python
 from recurtools import sumrecursive
