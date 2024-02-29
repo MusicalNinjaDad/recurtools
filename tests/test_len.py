@@ -18,9 +18,3 @@ def test_len_docstring():
 
 def test_len_numpyarray():
     assert len(nested(array([[1,2],[3,4]]))) == 4
-
-def test_len_countcollections():
-    assert len(nested([1, 2, [3, 4]], countcontainers=True)) == 5
-
-def test_len_singleint_countcollections():
-    assert len(nested(6, True)) == 0  # noqa: FBT003

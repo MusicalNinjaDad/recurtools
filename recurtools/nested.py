@@ -1,7 +1,7 @@
 # noqa: D100
 from typing import Collection, Container
 
-from recurtools.utils import countrecursive, flatten, inrecursive, lenrecursive
+from recurtools.utils import countrecursive, flatten, inrecursive
 
 
 class nested(Collection):  # noqa: N801
@@ -47,7 +47,7 @@ class nested(Collection):  # noqa: N801
         return inrecursive(self.nestedcontainer, __o)
 
     def __len__(self):  # noqa: ANN204, D105
-        return lenrecursive(self.nestedcontainer)
+        return len(list(flatten(self.nestedcontainer)))
 
     def __iter__(self):  # noqa: ANN204, D105
         return flatten(self.nestedcontainer)
