@@ -100,3 +100,8 @@ extend-select = [
     "PLR2004", # Magic number comparisons are OK in tests
     "D1", # Don't REQUIRE docstrings for tests - but they are nice
     ]
+
+"**/__init__.py" = [
+    "D104", # Don't require module docstring in __init__.py
+    "F401", # Unused imports are fine: using __init__.py to expose them with implicit __ALL__ 
+]

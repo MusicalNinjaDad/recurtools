@@ -1,5 +1,3 @@
-# noqa: D104
-
 from .nested import nested
 from .utils import (
     countrecursive,
@@ -8,5 +6,3 @@ from .utils import (
     starchain,
     sumrecursive,
 )
-
-__all__ = ["flatten", "sumrecursive", "countrecursive", "indexrecursive", "starchain", "nested"]
