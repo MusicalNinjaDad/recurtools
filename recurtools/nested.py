@@ -2,7 +2,7 @@
 from contextlib import suppress
 from typing import Any, Collection, Container, Iterable
 
-from recurtools.utils import countrecursive, flatten
+from recurtools.utils import flatten
 
 
 class nested(Collection):  # noqa: N801
@@ -64,4 +64,4 @@ class nested(Collection):  # noqa: N801
         return flatten(self.nestedcontainer)
 
     def count(self, __o):  # noqa: ANN001, ANN201, D102
-        return countrecursive(self.nestedcontainer, __o)
+        return list(flatten(self.nestedcontainer, preserve=None)).count(__o)

@@ -127,22 +127,6 @@ def sumrecursive(seq):  # noqa: ANN001, ANN201
 
     return _sum(flatten(seq))
 
-
-def countrecursive(collection, val):  # noqa: ANN001, ANN201
-    """
-    Returns total count of occurences of val in (nested) collection recursively.
-    If no elements contain val then return will be 0
-    """  # noqa: D205, D400, D415
-
-    def _count(collection, val):  # noqa: ANN001
-        count_ = 0
-        for x in collection:
-            if x == val:
-                count_ += 1
-        return count_
-
-    return _count(flatten(collection, preserve=None), val)
-
 class NotFoundError(LookupError):  # noqa: D101
     pass
 
