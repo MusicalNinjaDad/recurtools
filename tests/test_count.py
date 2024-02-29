@@ -7,3 +7,6 @@ def test_count_ints():
 
 def test_count_strs():
     assert nested(["ab", "b", ["c", "db", ["e","bob"]]]).count("b") == 5
+
+def test_count_notfound():
+    assert nested([1, 2, [3, 2]]).count(4) == 0
