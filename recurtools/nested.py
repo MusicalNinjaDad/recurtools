@@ -94,4 +94,22 @@ class nested(Collection):  # noqa: N801
         Index is of the form a tuple with index at each level of the hierarchy.
         Raises a ValueError if there is no such item.
         """
-        return indexrecursive(self.nestedcontainer, x)
+
+        class NotFoundError(LookupError):
+            pass
+        class NoIndexError(LookupError):
+            pass
+
+        def _indexrecursive(seq, val):  # noqa: ANN001
+            try:
+                return (seq.index(val),)
+            except AttributeError as a: # seq does not support index()
+                raise NoIndexError from a
+            except ValueError as v: # seq does support index() but val not found
+                for i, s in enumerate(seq):
+                    if s is not seq:  # single char strings etc.
+                        with suppress(NotFoundError, NoIndexError):
+                            return tuple(flatten((i, _indexrecursive(s, val))))
+                raise NotFoundError from v
+
+        return _indexrecursive(self.nestedcontainer, x)
