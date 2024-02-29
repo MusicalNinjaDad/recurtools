@@ -2,7 +2,7 @@
 from contextlib import suppress
 from typing import Any, Collection, Container, Iterable
 
-from recurtools.utils import countrecursive, flatten
+from recurtools.utils import flatten
 
 
 class nested(Collection):  # noqa: N801
@@ -63,5 +63,24 @@ class nested(Collection):  # noqa: N801
     def __iter__(self):  # noqa: ANN204
         return flatten(self.nestedcontainer)
 
-    def count(self, __o):  # noqa: ANN001, ANN201, D102
-        return countrecursive(self.nestedcontainer, __o)
+    def count(self, x: Any) -> int:
+        """
+        Return the number of times x occurs within the nested structure.
+
+        Examples:
+        --------
+        ```
+        >>> nest = nested([1, 2, [3, 2]])
+        >>> nest.count(2)
+        2
+        >>> nest.count(4)
+        0
+        ```
+
+        ```
+        >>> nest = nested(["ab", "b", ["c", "db", ["e","bob"]]])
+        >>> nest.count("b")
+        5
+        ```
+        """
+        return list(flatten(self.nestedcontainer, preserve=None)).count(x)
