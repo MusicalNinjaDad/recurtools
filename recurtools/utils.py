@@ -127,13 +127,6 @@ def sumrecursive(seq):  # noqa: ANN001, ANN201
 
     return _sum(flatten(seq))
 
-class NotFoundError(LookupError):  # noqa: D101
-    pass
-
-
-class NoIndexError(LookupError):  # noqa: D101
-    pass
-
 
 @contextmanager
 def ignoreException(ExceptionType):  # noqa: ANN001, ANN201, D103, N802, N803
@@ -149,21 +142,6 @@ def swapException(OriginalException, NewException):  # noqa: ANN001, ANN201, D10
         yield
     except OriginalException:
         raise NewException  # noqa: B904
-
-
-def indexrecursive(seq, val):  # noqa: ANN001, ANN201, D103
-    def _lookinchildren(seq, val):  # noqa: ANN001
-        for i, s in enumerate(seq):
-            if s is not seq:  # single char strings etc.
-                with ignoreException(NotFoundError), ignoreException(NoIndexError):
-                    return tuple(flatten((i, indexrecursive(s, val))))
-        raise NotFoundError
-
-    try:
-        with swapException(AttributeError, NoIndexError):
-            return (seq.index(val),)
-    except ValueError:  # not found but supports index, aasume also iterable
-        return _lookinchildren(seq, val)
 
 
 class Nonexistent:  # noqa: D101

@@ -76,6 +76,7 @@ ignore = [
     "ANN202", # Return type annotation for private functions
     "ANN401", # Using Any often enough that supressing individually is pointless
     "W291", # Double space at EOL is linebreak in md-docstring
+    "W292", # Too much typing to add newline at end of each file
     "W293", # Whitespace only lines are OK for us
     ]
 extend-select = [

@@ -1,4 +1,6 @@
 # noqa: D100
+from __future__ import annotations
+
 from contextlib import suppress
 from typing import Any, Collection, Container, Iterable
 
@@ -84,3 +86,52 @@ class nested(Collection):  # noqa: N801
         ```
         """
         return list(flatten(self.nestedcontainer, preserve=None)).count(x)
+
+    def index(self, x: Any) -> tuple[int]:
+        """
+        Return zero-based index in the nested structure of the first item whose value is equal to x. 
+        
+        Index is of the form a tuple with index at each level of the hierarchy.
+        Raises a ValueError if there is no such item.
+
+        Examples:
+        --------
+        ```
+        >>> nest = nested([1, 2, [3, 2]])
+        >>> nest.index(2)
+        (1,)
+        >>> nest.index(3)
+        (2, 0)
+        >>> nest.index(4)
+        Traceback (most recent call last):
+        ...
+        ValueError: 4 is not in nest
+        ```
+
+        ```
+        >>> nest = nested(["Foo",[1,"Bar"]])
+        >>> nest.index("a")
+        (1, 1, 1)
+        ```
+        """
+
+        class NotFoundError(LookupError):
+            pass
+        class NoIndexError(LookupError):
+            pass
+
+        def _indexrecursive(seq, val):  # noqa: ANN001
+            try:
+                return (seq.index(val),)
+            except AttributeError as a: # seq does not support index()
+                raise NoIndexError from a
+            except ValueError as v: # seq does support index() but val not found
+                for i, s in enumerate(seq):
+                    if s is not seq:  # single char strings etc.
+                        with suppress(NotFoundError, NoIndexError):
+                            return tuple(flatten((i, _indexrecursive(s, val))))
+                raise NotFoundError from v
+        try:
+            return _indexrecursive(self.nestedcontainer, x)
+        except NotFoundError:
+            raise ValueError (f"{x} is not in nest") from None  # noqa: EM102, TRY003
