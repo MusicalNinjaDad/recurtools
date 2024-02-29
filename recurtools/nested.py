@@ -46,16 +46,11 @@ class nested(Collection):  # noqa: N801
 
     def __contains__(self, __other: Any) -> bool:  # noqa: ANN401
         def _in(collection, val):  # noqa: ANN001
-            found = False
             for x in collection:
-                found = x == val
-                if found:
-                    break
-                with suppress(TypeError): # could be a non-iterable container returned by flatten
-                    found = val in x
-                    if found:
-                        break
-            return found
+                if x == val: return True  # noqa: E701
+                with suppress(TypeError): # x not guaranteed to support __contains__
+                    if val in x: return True  # noqa: E701
+            return False
 
         return _in(flatten(self.nestedcontainer), __other)
 
