@@ -1,7 +1,6 @@
 import pytest
 
 from recurtools import nested
-from recurtools.utils import NotFoundError
 
 # https://stackoverflow.com/questions/72321903/deep-list-count-count-lists-within-lists
 
@@ -11,9 +10,8 @@ def test_index_toplevel():
 def test_index_int():
     assert nested([1, 2, [3, 2]]).index(3) == (2,0)
 
-@pytest.mark.xfail()
 def test_index_notfound():
-    with pytest.raises(NotFoundError):
+    with pytest.raises(ValueError, match="4 is not in nest"):
         nested([1, 2, [3, 2]]).index(4)
 
 def test_index_later():

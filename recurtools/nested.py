@@ -4,7 +4,7 @@ from __future__ import annotations
 from contextlib import suppress
 from typing import Any, Collection, Container, Iterable
 
-from recurtools.utils import flatten, indexrecursive
+from recurtools.utils import flatten
 
 
 class nested(Collection):  # noqa: N801
@@ -111,5 +111,7 @@ class nested(Collection):  # noqa: N801
                         with suppress(NotFoundError, NoIndexError):
                             return tuple(flatten((i, _indexrecursive(s, val))))
                 raise NotFoundError from v
-
-        return _indexrecursive(self.nestedcontainer, x)
+        try:
+            return _indexrecursive(self.nestedcontainer, x)
+        except NotFoundError:
+            raise ValueError (f"{x} is not in nest") from None  # noqa: EM102, TRY003
