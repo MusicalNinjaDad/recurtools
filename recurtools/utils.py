@@ -56,23 +56,6 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
                 else:
                     yield from flatten(item, preserve=preserve)
 
-def sumrecursive(seq):  # noqa: ANN001, ANN201
-    """
-    Returns total sum of all elements recursively.
-    If no elements support sum then return will be 0, no TypeError will be raised
-    """  # noqa: D205, D400, D415
-
-    def _sum(seq):  # noqa: ANN001
-        s = 0
-        for x in seq:
-            try:  # noqa: SIM105
-                s = sum((s, x))
-            except TypeError:  # noqa: PERF203
-                pass
-        return s
-
-    return _sum(flatten(seq))
-
 
 @contextmanager
 def ignoreException(ExceptionType):  # noqa: ANN001, ANN201, D103, N802, N803

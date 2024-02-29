@@ -1,5 +1,6 @@
 # Changelog: recurtools
 
+- removed `sumrecursive()`see [Issue 11](https://github.com/MusicalNinjaDad/recurtools/issues/11)
 - removed `chainanything()` - some of the functionality may later be incorporated into `in nested.something()`
 - removed `indexrecursive()` function in preference for `nested.index()`.
 - removed `countrecursive()` function in preference for `nested.count()`.
