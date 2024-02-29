@@ -1,8 +1,9 @@
-from __future__ import annotations  # noqa: D100
+# noqa: D100
 
-from collections.abc import Iterable, Sized
+from __future__ import annotations
+
 from contextlib import contextmanager
-from typing import Any, Generator
+from typing import Any, Generator, Iterable
 
 stringlike = (str, bytes)
 
@@ -108,41 +109,6 @@ def starchain(
                 yield from flatten(arg, preserve=preserve)
             else:
                 yield from arg
-
-
-def lenrecursive(container, countcontainers=False):  # noqa: ANN001, ANN201, FBT002
-    """
-    Returns total number of node elements in the (nested) container
-
-    countcontainers=True: counts container collections and node elements.
-    This is effectively recursively sum(len(c for c in container))
-
-    Note:
-    ----
-        In this case if no elements support len the return will be 0, no TypeError will be raised
-        lenrecursive(6) == 1
-        lenrecursive(6, True) == 0
-
-    """  # noqa: D400, D415
-    if countcontainers:
-
-        def _len(x):  # noqa: ANN001
-            try:
-                return len(x)
-            except TypeError:  # no len
-                return 0
-
-        try:
-            return _len(container) + sum(lenrecursive(c, countcontainers=True) for c in container if c is not container)
-        except TypeError:  # not iterable
-            return _len(container)
-    else:
-        return len([x for x in flatten(container)])  # noqa: C416
-
-
-def lenrecursiveshort(seq):  # noqa: ANN001, ANN201, D103
-    return len(seq) + sum(lenrecursiveshort(s) for s in seq if isinstance(s, Sized) and not isinstance(s, str))
-
 
 def sumrecursive(seq):  # noqa: ANN001, ANN201
     """
