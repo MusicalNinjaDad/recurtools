@@ -63,13 +63,15 @@ format.quote-style = "double"
 select = ["ALL"]
 flake8-pytest-style.fixture-parentheses = false
 flake8-annotations.mypy-init-return = true
-pydocstyle.convention = "google"
+pydocstyle.convention = "numpy"
 ignore = [
     "D105", # Document magic methods in main docstring, not in own docstring
-    "D107", # Don't document `__init__` methods
     "D203", # We want D211 - no blank line before class docstring
+    "D204", # No blank line after class docstring
     "D212", # We want D213 - Multiline docstrings start on second line
     "D401", # First line of docstring does not need to be in imperative mood
+    "D406", # Finish headings with colon (:)
+    "D407", # We're not underlining sections
     "D417", # Undocumented arguments - need to switch off if wrapping args in `arg`
     "E701", # One-line ifs are not great, one-liners with suppression are worse
     "ANN101", # Type annotation for `self`
@@ -87,9 +89,6 @@ extend-select = [
     "D404", # First word of the docstring should not be "This"
     "D405", # Section name should be properly capitalized 
     "D406", # Section name should end with a newline
-    "D407", # Dashed underline after section
-    "D408", # Section underline should be in the line following the section's name
-    "D409", # Section underline should match the length of its name
 ]
 
 [tool.ruff.lint.per-file-ignores]
