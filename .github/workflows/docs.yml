@@ -1,14 +1,9 @@
-# Sample workflow for building and deploying a mdBook site to GitHub Pages
-#
-# To get started with mdBook see: https://rust-lang.github.io/mdBook/index.html
-#
-name: Deploy mdBook site to Pages
+name: Deploy mkdocs site to Pages
 
 on:
   # Runs on pushes targeting the default branch
   push:
     branches: [$default-branch]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -28,24 +23,25 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    env:
-      MDBOOK_VERSION: 0.4.36
     steps:
       - uses: actions/checkout@v4
-      - name: Install mdBook
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - name: Install dependencies
         run: |
-          curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
-          rustup update
-          cargo install --version ${MDBOOK_VERSION} mdbook
+          python -m pip install --upgrade pip
+          python -m pip install -e .[dev]
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
-      - name: Build with mdBook
-        run: mdbook build
+      - name: Build with mkdocs
+        run: mkdocs build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./book
+          path: ./site
 
   # Deployment job
   deploy:
