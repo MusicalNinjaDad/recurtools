@@ -1,10 +1,10 @@
 name: Deploy mkdocs site to Pages
 
 on:
-  # Runs on pushes targeting the default branch or any branch named docs/*
+  # Runs on pushes targeting main or any branch named docs/*
   push:
     branches:
-    - $default-branch
+    - "main"
     - "docs/**"
 
   # Allows you to run this workflow manually from the Actions tab
