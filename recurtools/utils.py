@@ -15,7 +15,7 @@ def flatten(nestediterable: Iterable, *, preserve: type | Iterable[type] | None 
 
     Keyword Args:
         preserve (type | Iterable[type]): Optional type(s) which will not be flattened. Default: `(str, bytes)`.  
-          If you want to flatten strings then use `preserve=None`.
+            If you want to flatten strings then use `preserve=None`.
 
 
     !!! Note "bytes"
