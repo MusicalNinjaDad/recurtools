@@ -34,6 +34,7 @@ where = ["."]
 
 [project.optional-dependencies]
 dev = [
+    "black",
     "mkdocs",
     "mkdocstrings[python]",
     "mkdocs-material",
