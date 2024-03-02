@@ -34,6 +34,7 @@ where = ["."]
 
 [project.optional-dependencies]
 dev = [
+    "black",
     "mkdocs",
     "mkdocstrings[python]",
     "mkdocs-material",
@@ -47,6 +48,8 @@ dev = [
 xfail_strict=true
 addopts = [
     "--doctest-modules",
+    "--doctest-mdcodeblocks",
+    "--doctest-glob='*.md'",
 ]
 
 [tool.coverage.run]
