@@ -132,3 +132,7 @@ class nested(Collection):  # noqa: N801
             return _indexrecursive(self.contents, x)
         except NotFoundError:
             raise ValueError (f"{x} is not in nest") from None  # noqa: EM102, TRY003
+
+    def flatten(self) -> Iterable:
+        """Returns an iterable of the flattened contents of the list."""
+        return flatten(self.contents)
