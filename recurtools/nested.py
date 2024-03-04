@@ -2,9 +2,9 @@
 from __future__ import annotations
 
 from contextlib import suppress
-from typing import Any, Collection, Container, Iterable
+from typing import Any, Collection, Container, Generator, Iterable
 
-from recurtools.utils import flatten
+from recurtools.utils import flatten, stringlike
 
 
 class nested(Collection):  # noqa: N801
@@ -133,6 +133,6 @@ class nested(Collection):  # noqa: N801
         except NotFoundError:
             raise ValueError (f"{x} is not in nest") from None  # noqa: EM102, TRY003
 
-    def flatten(self) -> Iterable:
+    def flatten(self, *, preserve: type | Iterable[type] | None = stringlike) -> Generator:
         """Returns an iterable of the flattened contents of the list."""
-        return flatten(self.contents)
+        return flatten(self.contents, preserve=preserve)
