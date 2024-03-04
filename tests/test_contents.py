@@ -18,3 +18,8 @@ def test_flatten_default():
         ["abc","def"],
     ])
     assert list(nest.flatten()) == [1,2,3,4,"abc","def"]
+
+@pytest.mark.xfail(reason="NotImplemented")
+def test_flatten_preserveNone():  # noqa: N802
+        nest=nested([1,2,"abc",[3,4]])
+        assert list(nest.flatten(preserve = None) == [1, 2, "a", "b", "c", 3, 4])
