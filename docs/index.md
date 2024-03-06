@@ -12,17 +12,9 @@ Additionally, the [flatten() function](#flatten) provides the ability to configu
     
     A future version will aim to provide a similar interface to the `preserve` keyword argument in flatten.
 
-## Usage
+## Quick reference - nested
 
-```
-from recurtools import nested
-```
-
-```
-from recurtools import flatten
-```
-
-## Class Diagram
+Full details under [Reference - class nested](reference.md#recurtools.nested.nested)
 
 ``` mermaid
 classDiagram
@@ -39,8 +31,9 @@ classDiagram
     class Collection["collections.abc.Collection"]
 ```
 
-
-
 ::: recurtools.nested.nested
-
-::: recurtools.utils.flatten
+    handler: python
+    options:
+      members: false
+      show_root_heading: false
+      show_root_toc_entry: false

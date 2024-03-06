@@ -62,5 +62,7 @@ markdown_extensions:
 nav:
 - recurtools:
   - index.md
+  - usage.md
+  - reference.md
 - pytest-doctest-mkdocstrings:
   - https://musicalninjadad.github.io/pytest-doctest-mkdocstrings
