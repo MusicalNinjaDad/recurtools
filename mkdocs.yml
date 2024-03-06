@@ -1,4 +1,4 @@
-site_name: "recurtools"
+site_name: "MusicalNinja libraries"
 repo_url: https://github.com/MusicalNinjaDad/recurtools
 repo_name: MusicalNinjaDad/recurtools
 
@@ -27,7 +27,8 @@ theme:
   features:
     - navigation.expand
     - navigation.path
-    - navigation.indexes
+    - navigation.tabs
+    - toc.integrate
 
 plugins:
 - search
@@ -44,7 +45,7 @@ plugins:
           signature_crossrefs: true
           separate_signature: true
           show_signature_annotations: true
-          docstring_section_style: table
+          docstring_section_style: spacy
           docstring_options:
             ignore_init_summary: true
           merge_init_into_class: true
@@ -59,5 +60,9 @@ markdown_extensions:
       format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-- Home:
+- recurtools:
   - index.md
+  - usage.md
+  - reference.md
+- pytest-doctest-mkdocstrings:
+  - https://musicalninjadad.github.io/pytest-doctest-mkdocstrings
