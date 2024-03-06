@@ -1,4 +1,4 @@
-# recurtools
+# About
 
 A simple library to support working with recursively nested objects.
 
