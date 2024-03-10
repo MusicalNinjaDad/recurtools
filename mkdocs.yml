@@ -1,4 +1,4 @@
-site_name: "MusicalNinja libraries"
+site_name: "recurtools"
 repo_url: https://github.com/MusicalNinjaDad/recurtools
 repo_name: MusicalNinjaDad/recurtools
 
@@ -64,5 +64,3 @@ nav:
   - index.md
   - usage.md
   - reference.md
-- pytest-doctest-mkdocstrings:
-  - https://musicalninjadad.github.io/pytest-doctest-mkdocstrings
