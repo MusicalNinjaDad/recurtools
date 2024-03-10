@@ -60,7 +60,6 @@ markdown_extensions:
       format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-- recurtools:
-  - index.md
-  - usage.md
-  - reference.md
+- index.md
+- usage.md
+- reference.md
