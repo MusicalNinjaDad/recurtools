@@ -66,16 +66,7 @@ format.quote-style = "double"
 select = ["ALL"]
 flake8-pytest-style.fixture-parentheses = false
 flake8-annotations.mypy-init-return = true
-pydocstyle.convention = "numpy"
-ignore = [
-    "D105", # Document magic methods in main docstring, not in own docstring
-    "D203", # We want D211 - no blank line before class docstring
-    "D204", # No blank line after class docstring
-    "D212", # We want D213 - Multiline docstrings start on second line
-    "D401", # First line of docstring does not need to be in imperative mood
-    "D406", # Finish headings with colon (:)
-    "D407", # We're not underlining sections
-    "D417", # Undocumented arguments - need to switch off if wrapping args in `arg`
+extend-ignore = [
     "E701", # One-line ifs are not great, one-liners with suppression are worse
     "ANN101", # Type annotation for `self`
     "ANN202", # Return type annotation for private functions
@@ -83,16 +74,17 @@ ignore = [
     "W291", # Double space at EOL is linebreak in md-docstring
     "W292", # Too much typing to add newline at end of each file
     "W293", # Whitespace only lines are OK for us
+    "D401", # First line of docstring should be in imperative mood ("Returns ..." is OK, for example)
+    "D203", # 1 blank line required before class docstring (No thank you, only after the class docstring)
+    "D212", # Multi-line docstring summary should start at the first line (We start on new line, D209)
+    "D215", # Section underline is over-indented (No underlines)
+    "D400", # First line should end with a period (We allow any punctuation, D415)
+    "D406", # Section name should end with a newline (We use a colon, D416)
+    "D407", # Missing dashed underline after section (No underlines)
+    "D408", # Section underline should be in the line following the section's name (No underlines)
+    "D409", # Section underline should match the length of its name (No underlines)
+    "D413", # Missing blank line after last section (Not required)
     ]
-extend-select = [
-    "D211", # We want D211 - no blank line before class docstring
-    "D213", # We want D213 - Multiline docstrings start on second line
-    "D400", # First lines should end in a period (.)
-    "D403", # First word of the first line should be capitalized
-    "D404", # First word of the docstring should not be "This"
-    "D405", # Section name should be properly capitalized 
-    "D406", # Section name should end with a newline
-]
 
 [tool.ruff.lint.per-file-ignores]
 # Additional ignores for tests 

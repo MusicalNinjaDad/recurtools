@@ -41,12 +41,14 @@ class nested(Collection):  # noqa: N801
         1
         ```
     """
+
     def __init__(self, contents: Container) -> None:
         """Initialise a nested container."""
         self.contents = contents
 
 
-    def __contains__(self, __other: Any) -> bool:
+    def __contains__(self, _value: Any) -> bool:
+        """`in nested` returns True if _value is present at any depth."""
         
         def _in(collection: Iterable, val: Any):
             for item in collection: # by using flatten in the call to _in, we are guaranteed an initial iterable
@@ -55,13 +57,15 @@ class nested(Collection):  # noqa: N801
                     if val in item: return True
             return False
 
-        return _in(flatten(self.contents), __other)
+        return _in(flatten(self.contents), _value)
 
 
     def __len__(self):  # noqa: ANN204
+        """`len(nested)` is the total number of bottom-level items."""
         return len(list(flatten(self.contents)))
 
     def __iter__(self):  # noqa: ANN204
+        """`nested` iterates over the flattened contents."""
         return flatten(self.contents)
 
     def count(self, x: Any) -> int:
