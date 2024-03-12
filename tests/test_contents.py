@@ -1,5 +1,3 @@
-# import pytest
-
 from recurtools import nested
 
 
