@@ -2,8 +2,8 @@
 
 A simple library to support working with recursively nested objects.
 
-Primarily built around the [nested class](#nested) which offers `in`, `len`, `index()` and `count()` functionality.  
-Additionally, the [flatten() function](#flatten) provides the ability to configure behaviour for strings etc.
+Primarily built around the [nested class](#quick-reference-nested) which offers `in`, `len`, `index()` and `count()` functionality.  
+Additionally, the [flatten() function](reference.md#recurtools.utils.flatten) provides the ability to configure behaviour for strings etc.
 
 !!! Tip "A note on strings in nested objects"
 
